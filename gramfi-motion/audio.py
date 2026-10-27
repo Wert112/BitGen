@@ -75,13 +75,14 @@ def additive(freq, d, nh=10, tilt=1.0, hdecay=0.0, detune=0.0):
 
 # ------------------------------------------------------------------ music: the supplied track, cut on its phrase grid
 # Track: 140 BPM. Its break ends with a drop at 84.04 s; the groove ends at 125.196 s and the tail begins.
-# Video 0..56.571 s  <- track 51.469..108.040 s (drop lands at video 32.571 s = the phone landing)
-# Video 56.571..end  <- track 125.196 s onward (natural ending under the logo lockup)
+# Video 0..60.0 s  <- track 51.469..111.469 s (drop lands at video 32.571 s = the phone landing)
+# Video 60.0..end   <- track 125.196 s onward (its natural ending, under the finale)
+# Both splice points are 8-bar phrase starts (16 and 24 bars after the drop), so the phrase never breaks.
 import subprocess
 TRACK = sys.argv[3] if len(sys.argv) > 3 else "assets/music.mp3"
 raw = subprocess.run(["ffmpeg", "-v", "error", "-i", TRACK, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
 trk = np.frombuffer(raw, "<f4").reshape(-1, 2).astype(float)
-SPLIT = 132 * 60 / 140  # 56.571 s, start of the outro
+SPLIT = 140 * 60 / 140  # 60.0 s, start of the finale
 A0, B0 = 51.469, 125.196
 def cut(a, n):
     i = int(round(a * SR)); x = trk[i:i + n]
@@ -93,8 +94,8 @@ fadeA = np.cos(np.linspace(0, np.pi / 2, XF))[:, None]; fadeB = np.sin(np.linspa
 out = np.zeros((N, 2)); out[:nA] = music[:nA]
 out[nA - XF // 2:nA + XF // 2] = music[nA - XF // 2:nA + XF // 2] * fadeA + tail[:XF] * fadeB
 out[nA + XF // 2:] = tail[XF:XF + N - nA - XF // 2]
-# intro: the track "opens" from a dark low-passed version to full range over the first 4.3 s
-intro_end = 10 * 60 / 140
+# intro: the track "opens" from a dark low-passed version to full range over the first 5.1 s
+intro_end = 12 * 60 / 140
 lp = fft_filter(out, hi=700)
 w = np.clip(np.arange(N) / SR / intro_end, 0, 1)[:, None] ** 1.5
 out = lp * (1 - w) + out * w
@@ -213,6 +214,21 @@ for e in ev["events"]:
     pan = float(rng.uniform(-0.25, 0.25))
     if ty == "click":
         place(sfx, t, click(), 0.55, pan)
+    elif ty == "tap":
+        place(sfx, t, fft_filter(click(), hi=3500), 0.5, pan)
+    elif ty == "confirm":
+        place(sfx, t, chime(), 0.55, 0.15)
+    elif ty == "land":
+        place(sfx, t, impact(0.8, 1.3), 0.4)
+    elif ty == "blip":
+        bt = tt(0.18)
+        place(sfx, t, np.sin(2 * np.pi * 1320 * bt) * np.exp(-bt * 28) * 0.35, 1.0, float(np.sin(t * 7) * 0.6))
+    elif ty == "rumble":
+        d = e["len"]; n = fft_filter(rng.standard_normal(int(d * SR)), lo=300, hi=2500)
+        sh = np.sin(np.pi * np.clip(tt(d) / d, 0, 1)) ** 1.5
+        place(sfx, t, n * sh * 0.25, 1.0)
+        for k in range(26):  # murmur of incoming messages
+            place(sfx, t + rng.uniform(0, d - .2), pop() * rng.uniform(.2, .5), 0.35, float(rng.uniform(-.8, .8)))
     elif ty == "pop":
         place(sfx, t, pop(), 0.30, pan)
     elif ty == "whoosh":
