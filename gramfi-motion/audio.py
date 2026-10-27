@@ -74,16 +74,16 @@ def additive(freq, d, nh=10, tilt=1.0, hdecay=0.0, detune=0.0):
 
 
 # ------------------------------------------------------------------ music: the supplied track, cut on its phrase grid
-# Track: 140 BPM. Its break ends with a drop at 84.04 s; the groove ends at 125.196 s and the tail begins.
-# Video 0..60.0 s  <- track 51.469..111.469 s (drop lands at video 32.571 s = the phone landing)
-# Video 60.0..end   <- track 125.196 s onward (its natural ending, under the finale)
-# Both splice points are 8-bar phrase starts (16 and 24 bars after the drop), so the phrase never breaks.
+# Track: 140 BPM, its drop at 84.04 s. v6 (110 s animatic):
+# Video 0..82.286 s  <- track 29.183..111.469 s (one continuous take; the drop lands at video 54.857 s = the phone landing)
+# Video 82.286..end  <- track 104.612 s onward (a 4-bar step back, then the track's own ending under the finale)
+# The splice repeats 16 beats on a 4-bar boundary, so the pulse never breaks.
 import subprocess
 TRACK = sys.argv[3] if len(sys.argv) > 3 else "assets/music.mp3"
 raw = subprocess.run(["ffmpeg", "-v", "error", "-i", TRACK, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
 trk = np.frombuffer(raw, "<f4").reshape(-1, 2).astype(float)
-SPLIT = 140 * 60 / 140  # 60.0 s, start of the finale
-A0, B0 = 51.469, 125.196
+SPLIT = 192 * 60 / 140  # 82.286 s
+A0, B0 = 29.183, 104.612
 def cut(a, n):
     i = int(round(a * SR)); x = trk[i:i + n]
     return np.vstack([x, np.zeros((n - len(x), 2))]) if len(x) < n else x
