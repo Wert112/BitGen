@@ -49,7 +49,7 @@ const D = T.D;
 const CUT = T.poly + 2.1; // Trade on the market card -> GramFi-Polymarket overview page
 // Scene time (tw) vs video time (tv): reading pauses in the web half, whole beats each (20 in total) so the phone
 // still lands on the drop. During a pause the scene holds its state while the camera keeps drifting.
-const HOLDS = [[T.A + 2.6, 3], [T.ai + 2.35, 4], [T.top - .3, 2], [T.map + 3.15, 2], [T.tele + 2.2, 3], [T.poly + 1.1, 3], [T.poly + 1.35, 3]];
+const HOLDS = [[T.A + 2.6, 3], [T.ai + 2.35, 4], [T.ctry + 1.75, 2], [T.map + 3.15, 2], [T.tele + 2.2, 3], [T.poly + 1.1, 3], [T.poly + 1.35, 3]];
 const warp = tv => { let acc = 0; for (const [h, n] of HOLDS) { const hv = h + acc; if (tv < hv) return tv - acc; if (tv < hv + n * B) return h; acc += n * B; } return tv - acc; };
 const toV = tw => { let acc = 0; for (const [h, n] of HOLDS) if (h < tw) acc += n * B; return tw + acc; };
 const DUR = T.end + HOLDS.reduce((a, [, n]) => a + n * B, 0);
@@ -185,13 +185,13 @@ const pods = []; [[1], [2, 3], [4, 5, 6], [7, 8, 9, 10]].forEach((row, ri) => ro
   const el = H(`<div class="pod ${k === 1 ? 'first' : ''}" style="left:${x}px;top:${y}px"><div class="r">#${k}</div><div class="nm"><span style="width:30px;height:30px;border-radius:50%;background:hsl(${k * 37},45%,45%)"></span>${n}</div><div class="k">RECENT AVG. VIEWS</div><div class="v">${fmt(v)}</div></div>`);
   $('#pods', pg_top).appendChild(el); pods.push({ el, ri, j }); }));
 
-// ---- S5: Channel Map (Example Channel is a conditional, labelled example)
+// ---- S5: Channel Map (Crypto Channel is a conditional, labelled example)
 const pg_map = addPage(H(`<div class="page">
   <div class="ptitle"><h2>Channel Map</h2><span class="info">i</span><div style="display:flex;gap:8px;margin-left:auto"><div class="inp" id="mapInp" style="width:320px"><span id="mapTxt">Search channel name</span><span class="caret" id="caret"></span></div><div class="btn" id="mapBtn">Search</div></div></div>
   <div style="position:absolute;left:26px;top:84px;width:1318px;height:620px;border-radius:6px;overflow:hidden;border:1px solid #1E1E1E;background:#080808">
    <canvas id="map" width="2636" height="1240" style="width:1318px;height:620px"></canvas>
    <div class="legend"><span><i style="background:#5B8DEF"></i>EN</span><span><i style="background:#9B7BFF"></i>RU</span><span><i style="background:#FF6FA5"></i>KR</span><span><i style="background:#F0A24A"></i>VN</span><span id="lgFwd" style="border-color:#EAFF00"><b style="color:#EAFF00">━</b> message forward</span></div>
-   <div class="minfo" id="mapInfo"><div style="display:flex;gap:10px;align-items:center;font-weight:700;font-size:16px"><span style="width:34px;height:34px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center">E</span>Example Channel <span class="ex">EXAMPLE</span></div><div style="margin-top:10px;font-size:14px;color:#ccc">Forwarded by <b style="color:#EAFF00">16 channels</b></div></div></div>
+   <div class="minfo" id="mapInfo"><div style="display:flex;gap:10px;align-items:center;font-weight:700;font-size:16px"><span style="width:34px;height:34px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center">E</span>Crypto Channel <span class="ex">EXAMPLE</span></div><div style="margin-top:10px;font-size:14px;color:#ccc">Forwarded by <b style="color:#EAFF00">16 channels</b></div></div></div>
 </div>`), T.map, T.tele, 'insight?tab=channelmap', 'sb_map', 'iris');
 const mctx = $('#map', pg_map).getContext('2d');
 const CL = [['#5B8DEF', 420, 300, 190], ['#9B7BFF', 860, 210, 160], ['#FF6FA5', 1040, 470, 130], ['#F0A24A', 640, 500, 130], ['#3FBF8F', 200, 480, 120], ['#D9B52C', 1160, 130, 90]];
@@ -204,7 +204,7 @@ const HE = []; { const pick = rng(9); while (HE.length < 16) { const j = Math.fl
 // ---- S6: Telescope (the post is a conditional example)
 const POSTS0 = [['Whales Guide', '#5B8DEF', 'Large on-chain transfer flagged by trackers — watching exchange inflows'], ['Crypto Insider KR', '#FF6FA5', '<span class="tag">$SUI</span> ecosystem volume up in Korea today'],
   ['Airdrop Gems', '#F0A24A', 'New points campaign is live — farm before the snapshot'], ['Activity News', '#3FBF8F', '<span class="tag">$ETH</span> ETF flows positive for the 5th day'], ['Market Wire', '#9B7BFF', 'Macro calendar: Fed decision this week']];
-const POSTS1 = [['Example Channel', '#3A3F3A', `<span class="tag t">$BTC</span> ${MARKET.replace(', 2026', '')} Polymarket shows <b style="color:#EAFF00">43% YES</b>.`, 1], ['Whales Guide', '#5B8DEF', '<span class="tag t">$BTC</span> 1,698 BTC moved to Coinbase Prime — possible sale?', 0],
+const POSTS1 = [['Crypto Channel', '#3A3F3A', `<span class="tag t">$BTC</span> ${MARKET.replace(', 2026', '')} Polymarket shows <b style="color:#EAFF00">43% YES</b>.`, 1], ['Whales Guide', '#5B8DEF', '<span class="tag t">$BTC</span> 1,698 BTC moved to Coinbase Prime — possible sale?', 0],
   ['Market Wire', '#9B7BFF', '<span class="tag t">$BTC</span> slips below $80,000 ahead of the Fed decision', 0], ['Crypto Insider KR', '#FF6FA5', '<span class="tag t">$BTC</span> Korean exchanges see rising volume', 0]];
 const pg_tele = addPage(H(`<div class="page">
   <div class="ptitle"><h2>Telescope</h2><span class="info">i</span><span class="pill">Global</span></div>
@@ -254,8 +254,8 @@ const ST = [
   ['st_amt', D + 2.7, `<div class="bm">💰 <b>Buying ✅ Yes</b> · 43¢<br><br>📋 <b>${MARKET}</b><br><br>How much would you like to bet?<span class="tme">14:56</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
   ['st_conf', D + 3.8, `<div class="bm">⚡ <b>Confirm your bet</b><br><br>${MARKET}<br><br>✅ Outcome: <b>YES</b><br>💰 Amount: <b>10.00 pUSD</b><br>💲 Price: 43.0¢ · Shares ≈ 23.26<br>🏆 If YES wins: <b>23.26 pUSD</b> (before fees)<span class="tme">14:56</span></div>` + KB([[['<span id="placeLbl">✅ Place order</span><span id="placeSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin1"></span>Placing order…</span>', 'b_place']], ['⬅️ Back']])],
   ['st_fill', D + 7.4, `<div class="bm">✅ <b>Order filled</b><br><br>23.26 <b>YES</b> shares @ 43¢ · cost 10.00 pUSD<br>Balance: 238.60 pUSD<span class="tme">14:57</span></div>` + KB([['◉ Open', '○ History', '○ Stats'], ['⬅️ Back']])],
-  ['st_top', T.copy + .026, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>sharp_sports</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>macro_mind</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tme">14:58</span></div>` + KB([['⬅️ Back']])],
-  ['st_tracked', T.copy + 2, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · sharp_sports —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tme">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
+  ['st_top', T.copy + .026, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>top_sport_trader</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>polymarket_whale</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tme">14:58</span></div>` + KB([['⬅️ Back']])],
+  ['st_tracked', T.copy + 2, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · top_sport_trader —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tme">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
   ['st_lab', T.auto + .026, `<div class="bm">🧪 <b>Strategy Lab</b> · BTC 5m Up/Down<br><br><span style="color:#C9D6E2">Buy the side trading in your price band near the end of a round. Every rule starts on paper.</span><br><br><span class="k2">Price band</span> 80–96¢ · <span class="k2">Size</span> $2.00<span class="tme">14:59</span></div>` + KB([['Asset', 'Side', ['Price band', 'b_band']], [['▶️ Start on paper', 'b_paper']], ['⬅️ Back']])],
   ['st_run', T.auto + 4.3, `<div class="bm">✅ <b>Strategy saved</b> · BTC 5m Up/Down<br><br>Mode: <b>📄 Paper</b> — no real funds used<br>Price band 80–96¢ · $2.00 per trade<span class="tme">14:59</span></div>` + KB([['📊 Paper results'], ['⬅️ Back']])],
   ['st_perp', T.perp + .027, `<div class="bm">⚡ <b>Perpetual futures</b> · BTC-USD<br><b style="font-size:22px">79,843</b> <b style="color:#FF5C60">−0.57%</b> <span class="lnk">15m</span><div style="margin:8px 0 6px;background:#0F1A25;border-radius:12px;padding:8px">${CANDLES(360, 110)}</div>Leverage up to <b>×50</b> · long or short<span class="tme">15:00</span></div>` + KB([[['📈 Long', 'b_long'], '📉 Short'], ['⬅️ Back', '🕒 15m', '🔄']])],
@@ -291,36 +291,54 @@ const AU = (() => { const r = rng(5), W = 275, G = 30, X0 = 10, Y = p => 20 + (1
     else h += `<g class="auM" data-x="${x0 + W * .87}"><text x="${x0 + W / 2}" y="${Y(56)}" fill="#C4C9C0" font-family="Inter" font-weight="700" font-size="21" text-anchor="middle">not in band · skip</text></g>`;
   });
   return `<svg width="1200" height="300" style="display:block;margin-top:18px"><defs><clipPath id="auClip"><rect id="auClipR" x="0" y="0" width="0" height="300"/></clipPath></defs>${h}<line id="auHead" y1="4" y2="268" stroke="#fff" stroke-width="2.5" opacity=".8"/></svg>`; })();
-const mob = H(`<div id="mob" style="position:absolute;inset:0">
+const AY = p => 20 + (47 - p) / 8 * 200;   // alert chart: 39¢..47¢
+const ALPTS = (() => { const r = rng(8), out = []; for (let i = 0; i <= 40; i++) { const u = i / 40; let p = 41 + 4.25 * Math.pow(u, 1.6) + (r() - .5) * .9 * (1 - u * .5); if (i === 40) p = 45.2; out.push([10 + u * 740, AY(p)]); } return out; })();
+const ALPATH = 'M' + ALPTS.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' L');
+const mob = H(`<div id="mob\" style="position:absolute;inset:0">
   <div id="tk" class="mx" style="left:90px;top:300px;width:860px">
     <div class="steps">${['Find market', 'Pick a side', 'Amount', 'Confirm'].map((w, i) => `<span class="stp"><b>${i + 1}</b>${w}</span>`).join('')}</div>
     <div class="tr" id="tk0"><div class="k">MARKET</div><div class="v" style="font-size:38px">${MARKET}</div></div>
     <div class="tr" style="display:flex;gap:70px"><div id="tk1"><div class="k">SIDE · PRICE</div><div class="v"><em>YES</em> @ 43¢</div></div><div id="tk2"><div class="k">AMOUNT</div><div class="v">$10.00</div></div></div>
     <div class="tr" id="tk3"><div class="k">IF YES WINS</div><div class="v"><em>23.26 pUSD</em> <span style="font-size:24px;color:#9AA095;font-weight:600">before fees</span></div></div>
     <div id="stamp">✓ ORDER FILLED</div></div>
-  <div id="cpP" class="mx" style="left:860px;top:300px;width:960px"><div class="k">TOP TRADERS · BY 30-DAY PnL</div>
-    <div class="tc" id="tc1"><span class="av">S</span><div style="flex:1"><div class="v">sharp_sports</div><div class="s">PnL <b class="up">+$7,120</b> · ROI 71% · Win 84%</div><div id="tcAdd"><b>✓ Trader added</b> — copies 2% of balance per trade</div></div><span class="badge" id="tcBadge">FOLLOWING</span></div>
-    <div class="tc" id="tc2"><span class="av" style="background:#5B8DEF">M</span><div style="flex:1"><div class="v">macro_mind</div><div class="s">PnL <b class="up">+$4,380</b> · ROI 14%</div></div></div></div>
+  <div id="cpP" class="mx" style="left:860px;top:270px;width:960px"><div class="v" style="font-size:40px;line-height:1.15">Copy a trader's <em>Polymarket bets</em> automatically.</div><div class="k" style="margin-top:18px">TOP TRADERS · BY 30-DAY PnL</div>
+    <div class="tc" id="tc1"><span class="av">T</span><div style="flex:1"><div class="v">top_sport_trader</div><div class="s">PnL <b class="up">+$7,120</b> · ROI 71% · Win 84%</div><div id="tcAdd"><b>✓ Trader added</b> — each of their market trades is copied with 2% of your balance</div></div><span class="badge" id="tcBadge">FOLLOWING</span></div>
+    <div class="tc" id="tc2"><span class="av" style="background:#5B8DEF">P</span><div style="flex:1"><div class="v">polymarket_whale</div><div class="s">PnL <b class="up">+$4,380</b> · ROI 14%</div></div></div></div>
   <div id="auP" class="mx" style="left:80px;top:270px;width:1270px">
     <div class="v" style="font-size:44px;line-height:1.18">Trades <em>BTC 5-minute Up/Down</em> rounds for you, automatically.</div>
     <div class="s" style="font-size:27px">You choose the settings. The bot buys only when a round matches them.</div>${AU}
-    <div class="chips"><span class="ch" id="ch0">Price band <b>80–96¢</b></span><span class="ch" id="ch1"><b>$2</b> per trade</span><span class="ch" id="ch2">📄 Paper mode · no real funds</span></div></div>
+    <div class="chips"><span class="ch" id="ch0">Price band <b>80–96¢</b></span><span class="ch" id="ch1"><b>$2</b> per trade</span><span class="ch" id="ch2">Entry window · <b>last 150s</b></span></div></div>
   <div id="ppL" class="mx" style="left:70px;top:330px;width:640px"><div class="k">YOUR ORDER</div><div class="v" style="font-size:70px">📈 <em>LONG ×3</em></div><div class="s" style="font-size:31px;color:#fff">Margin <b>$22.50</b> → position <b>$67.50</b></div><div class="s">Profits if BTC rises</div></div>
   <div id="ppR" class="mx" style="left:1220px;top:400px;width:640px"><div class="k">✓ POSITION OPENED</div><div class="v" style="font-size:60px">Entry <em>79,860</em></div><div class="s" style="font-size:31px;color:#fff">Liquidation ≈ <b style="color:#FF5C60">53,600</b></div></div>
-  <div id="alL" class="mx" style="left:70px;top:330px;width:660px"><div class="k">🔔 PRICE ALERT SET · MARKET</div><div style="font-size:30px;font-weight:600;line-height:1.28">${FED}</div><div class="v" style="font-size:50px;margin-top:16px">Notify me when <em>YES</em> hits <em>45¢</em></div><div class="s">Now 41¢ · the message arrives in Telegram</div></div>
-  <div id="alB"><span style="flex:none">${LOGO(96)}</span><div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:26px;color:#C9D6E2;font-weight:700"><span>GramFi</span><span style="font-weight:500;color:#9AA3AD">now</span></div><div style="font-size:64px;font-weight:800;letter-spacing:-.01em;margin-top:4px">🔔 YES reached <span style="color:#EAFF00">45¢</span> 📈</div><div style="font-size:26px;color:#8E98A3;margin-top:6px;line-height:1.3">${FED}</div></div></div>
+  <div id="alP" class="mx" style="left:70px;top:270px;width:900px"><div class="k">🔔 PRICE ALERT · WORKS ON ANY POLYMARKET MARKET</div>
+    <div style="font-size:30px;font-weight:600;line-height:1.28">${FED}</div>
+    <div class="steps" style="margin:18px 0 6px">${['Pick market & side', 'Set your price', 'Get a Telegram message'].map((w, i) => `<span class="stp al"><b>${i + 1}</b>${w}</span>`).join('')}</div>
+    <svg id="alSvg" width="836" height="250" style="display:block">
+      <line x1="10" x2="760" y1="${AY(45)}" y2="${AY(45)}" id="alThr" stroke="#EAFF00" stroke-width="3" stroke-dasharray="10 9"/>
+      <text id="alThrT" x="764" y="${AY(45) + 7}" fill="#EAFF00" font-family="JetBrains Mono" font-weight="800" font-size="20">45¢</text>
+      <text id="alThrL" x="14" y="${AY(45) - 12}" fill="#EAFF00" font-family="JetBrains Mono" font-weight="700" font-size="17">YOUR ALERT: YES ≥ 45¢</text>
+      <defs><clipPath id="alClip"><rect id="alClipR" x="0" y="0" width="0" height="250"/></clipPath></defs>
+      <path d="${ALPATH}" fill="none" stroke="#6AB3F3" stroke-width="4" stroke-linejoin="round" clip-path="url(#alClip)"/>
+      <circle id="alHead" r="8" fill="#6AB3F3" stroke="#0F1011" stroke-width="3"/><text id="alNow" fill="#C4C9C0" font-family="JetBrains Mono" font-weight="700" font-size="18"></text>
+      <g id="alHit"><circle id="alRing" fill="none" stroke="#EAFF00" stroke-width="4"/><text id="alHitT" font-family="Inter" font-weight="800" font-size="24" fill="#EAFF00" text-anchor="end">🔔 YES reached 45¢ → message sent</text></g>
+      <text x="10" y="244" fill="#6D756A" font-family="JetBrains Mono" font-size="16">15:01</text><text x="760" y="244" fill="#6D756A" font-family="JetBrains Mono" font-size="16" text-anchor="end">16:22</text>
+    </svg></div>
+  <div id="alB"><span style="flex:none">${LOGO(80)}</span><div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:22px;color:#C9D6E2;font-weight:700"><span>GramFi</span><span style="font-weight:500;color:#9AA3AD">now</span></div><div style="font-size:52px;font-weight:800;letter-spacing:-.01em;margin-top:4px">🔔 YES reached <span style="color:#EAFF00">45¢</span> 📈</div><div style="font-size:22px;color:#8E98A3;margin-top:6px;line-height:1.3">${FED}</div></div></div>
 </div>`);
 $('#ov').insertBefore(mob, $('#caps'));
-const tkSteps = $$('.stp', mob), auMarks = $$('.auM', mob);
+const alSteps = $$('.stp.al', mob), tkSteps = $$('.stp:not(.al)', mob), auMarks = $$('.auM', mob);
 // perps: a full BTC chart behind the phone (world plane), the entry line drawn when the position opens
-const CH = (() => { const r = rng(33), N = 58, Y = p => 1180 - (p - 77400) / 3200 * 1000; let h = '', p = 78100, xs = [];
-  for (let i = 0; i < N; i++) { const o = p; p += (r() - .45) * 260 + (i > 40 ? 30 : 0); if (i === N - 1) p = 79843; const up = p >= o, x = 140 + i * 40, hi = Math.max(o, p) + r() * 140, lo = Math.min(o, p) - r() * 140;
+const CH = (() => { const r = rng(33), N = 52, Y = p => 1130 - (p - 77400) / 3200 * 900; let h = '', raw = [0];
+  for (let i = 1; i <= N; i++) raw.push(raw[i - 1] + (r() - .42) * 1 + (i > 30 ? .25 : 0));
+  const mn = Math.min(...raw), mx = Math.max(...raw), cl = raw.map(v => 77700 + (v - mn) / (mx - mn) * 2350); cl[N] = 79843;
+  for (let i = 0; i < N; i++) { const o = cl[i], p = cl[i + 1], up = p >= o, x = 160 + i * 42, hi = Math.max(o, p) + 40 + r() * 90, lo = Math.min(o, p) - 40 - r() * 90;
     h += `<g class="cn"><line x1="${x + 11}" x2="${x + 11}" y1="${Y(hi)}" y2="${Y(lo)}" stroke="${up ? '#2BD47D' : '#FF5C60'}" stroke-width="3"/><rect x="${x}" y="${Math.min(Y(o), Y(p))}" width="22" height="${Math.max(4, Math.abs(Y(o) - Y(p)))}" rx="3" fill="${up ? '#2BD47D' : '#FF5C60'}"/></g>`; }
-  for (let v = 77500; v <= 80500; v += 500) h += `<text x="2490" y="${Y(v) + 8}" fill="#5E6A75" font-family="JetBrains Mono" font-size="26" text-anchor="end">${fmt(v)}</text><line x1="120" x2="2380" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.05)" stroke-width="2"/>`;
-  h += `<line id="cEntry" x1="120" x2="2400" y1="${Y(79860)}" y2="${Y(79860)}" stroke="#EAFF00" stroke-width="5" stroke-dasharray="18 12" pathLength="1"/>`;
-  h += `<text x="140" y="1215" fill="#fff" font-family="Inter" font-weight="800" font-size="52">BTC-USD · Perpetual</text><text x="140" y="1272" fill="#FF5C60" font-family="JetBrains Mono" font-weight="700" font-size="40">79,843  −0.57%</text>`;
+  for (let v = 77500; v <= 80500; v += 500) h += `<text x="2440" y="${Y(v) + 8}" fill="#5E6A75" font-family="JetBrains Mono" font-size="26" text-anchor="end">${fmt(v)}</text><line x1="140" x2="2330" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.05)" stroke-width="2"/>`;
+  h += `<line id="cEntry" x1="140" x2="2340" y1="${Y(79860)}" y2="${Y(79860)}" stroke="#EAFF00" stroke-width="5" stroke-dasharray="18 12" pathLength="1"/>`;
+  h += `<text x="160" y="1215" fill="#fff" font-family="Inter" font-weight="800" font-size="52">BTC-USD · Perpetual</text><text x="160" y="1272" fill="#FF5C60" font-family="JetBrains Mono" font-weight="700" font-size="40">79,843  −0.57%</text>`;
   return `<svg width="2600" height="1300" viewBox="0 0 2600 1300">${h}</svg>`; })();
-const chart = H(`<div class="w" style="width:2600px;height:1300px">${CH}</div>`); cam.insertBefore(chart, phone); const chartC = $$('.cn', chart);
+const chart = H(`<div class="w" style="width:2600px;height:1300px">${CH}</div>`); cam.insertBefore(chart, phone);
+const bell = H(`<div class="w" style="width:1400px;height:1400px"><svg width="1400" height="1400" viewBox="0 0 140 140"><g id="bellG" style="transform-origin:70px 18px"><path d="M70 14 C70 14 70 8 70 8 M46 92 C46 60 50 34 70 30 C90 34 94 60 94 92 L102 102 L38 102 Z M60 108 a10 10 0 0 0 20 0" fill="none" stroke="#EAFF00" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></g>${[0, 1, 2].map(k => `<circle class="bRing" cx="70" cy="70" r="40" fill="none" stroke="#EAFF00" stroke-width="1"/>`).join('')}</svg></div>`); cam.insertBefore(bell, phone); const bRings = $$('.bRing', bell); const chartC = $$('.cn', chart);
 function renderMob(t, tv) {
   const show = (el, a, b, dx = 0, dy = 0) => { const q = E.o5(seg(t, a, a + .5)), o = E.io(seg(t, b - .3, b)), op = q * (1 - o); vis(el, op);
     el.style.transform = `translate(${(1 - q) * dx - o * dx * .3}px,${(1 - q) * dy}px)`; return op > 0; };
@@ -337,23 +355,37 @@ function renderMob(t, tv) {
     const a = E.o5(seg(t, T.copy + .656, T.copy + .967)), b = E.o5(seg(t, T.copy + .8, T.copy + 1.1)), ad = E.o5(seg(t, T.copy + 2.045, T.copy + 2.45));
     $('#tc1').style.transform = `translateX(${(1 - a) * 120}px) scale(${1 + .04 * ad})`; $('#tc1').style.opacity = a; $('#tc1').style.borderColor = ad > .5 ? '#EAFF00' : '#2A2E31';
     $('#tc2').style.transform = `translateX(${(1 - b) * 120}px) scale(${1 - .06 * ad})`; $('#tc2').style.opacity = b * (1 - .65 * ad);
-    $('#tcAdd').style.maxHeight = (ad * 60) + 'px'; $('#tcAdd').style.opacity = ad;
+    $('#tcAdd').style.maxHeight = (ad * 80) + 'px'; $('#tcAdd').style.opacity = ad;
     $('#tcBadge').style.opacity = ad; $('#tcBadge').style.transform = `scale(${lerp(1.8, 1, ad)})`;
   }
   // autotrading: the playhead runs through four rounds, buying only inside the band
   if (show($('#auP'), T.auto + .656, T.perp + .089, 0, 60)) {
     const ph = 1200 * E.io(seg(t, T.auto + 1.3, T.auto + 3.5)); $('#auClipR').setAttribute('width', ph); $('#auHead').setAttribute('x1', ph); $('#auHead').setAttribute('x2', ph); $('#auHead').style.opacity = ph > 0 && ph < 1199 ? .8 : 0;
     auMarks.forEach(m => { const q = clamp((ph - +m.dataset.x) / 40); m.style.opacity = q; m.style.transformOrigin = `${m.dataset.x}px 150px`; m.style.transform = `scale(${lerp(1.4, 1, E.o(q))})`; });
-    [['#ch0', T.auto + 1.777], ['#ch1', T.auto + 1.923], ['#ch2', T.auto + 4.3]].forEach(([id, a]) => { const q = E.o(seg(t, a, a + .3)); $(id).classList.toggle('on', q > .5); $(id).style.opacity = .4 + .6 * q; $(id).style.transform = `scale(${1 + .06 * Math.sin(Math.PI * q)})`; });
+    [['#ch0', T.auto + 1.777], ['#ch1', T.auto + 1.923], ['#ch2', T.auto + 2.07]].forEach(([id, a]) => { const q = E.o(seg(t, a, a + .3)); $(id).classList.toggle('on', q > .5); $(id).style.opacity = .4 + .6 * q; $(id).style.transform = `scale(${1 + .06 * Math.sin(Math.PI * q)})`; });
   }
   // perps: chart draws in behind; order on the left, opened position on the right
   { const cq = seg(t, T.perp + .267, T.perp + 1.143), co = E.io(seg(t, T.alert + .07, T.alert + .49)); vis(chart, (cq > 0 ? 1 : 0) * (1 - co));
     if (cq > 0 && co < 1) { setW(chart, 0, 20 + co * 300, -500, 2600, 1300); chartC.forEach((c, i) => c.style.opacity = clamp(cq * chartC.length * 1.15 - i)); const en = E.io(seg(t, T.perp + 3.471, T.perp + 3.9)); $('#cEntry').style.strokeDasharray = `${en} 1`; $('#cEntry').style.opacity = en > 0 ? 1 : 0; } }
   show($('#ppL'), T.perp + 1.929, T.alert + .07, -140); show($('#ppR'), T.perp + 3.614, T.alert + .07, 140);
   // alert: what was set, then the trigger lifted out of the lock screen
-  show($('#alL'), T.alert + 1.625, T.alert + 2.587, -140);
+  // alert: the mechanism — market, price, message — with the price line crossing the threshold while time passes
+  if (show($('#alP'), T.alert + .45, T.fin + .1, -140)) {
+    const on = t < T.alert + .8 ? 0 : t < T.alert + 2.5 ? 1 : 2, done = t >= T.alert + 3.25;
+    alSteps.forEach((e, i) => { e.className = 'stp al' + (i < on || done ? ' done' : i === on ? ' on' : ''); e.style.boxShadow = i === on && !done ? `0 0 0 ${2 + 3 * (.5 + .5 * Math.sin(tv * 5))}px rgba(234,255,0,.35)` : 'none'; });
+    const th = E.io(seg(t, T.alert + 1.5, T.alert + 1.85)); $('#alThr').setAttribute('x2', 10 + 750 * th); $('#alThrT').style.opacity = th; $('#alThrL').style.opacity = th;
+    const u = E.io(seg(t, T.alert + 1.0, T.alert + 3.25)), k = Math.min(40, Math.round(u * 40)), [hx, hy] = ALPTS[k];
+    $('#alClipR').setAttribute('width', hx); $('#alHead').setAttribute('cx', hx); $('#alHead').setAttribute('cy', hy); $('#alHead').setAttribute('fill', done ? '#EAFF00' : '#6AB3F3');
+    $('#alNow').setAttribute('x', hx + 14); $('#alNow').setAttribute('y', hy + 30); $('#alNow').textContent = done ? '' : `YES ${(41 + 4.2 * Math.pow(u, 1.6)).toFixed(0)}¢`;
+    const hq = seg(t, T.alert + 3.25, T.alert + 3.9); $('#alHit').style.opacity = hq > 0 ? 1 : 0; $('#alRing').setAttribute('cx', hx); $('#alRing').setAttribute('cy', hy); $('#alRing').setAttribute('r', 10 + 60 * E.o(hq)); $('#alRing').style.opacity = 1 - hq;
+    $('#alHitT').setAttribute('x', hx - 16); $('#alHitT').setAttribute('y', hy - 22); $('#alHitT').style.opacity = E.o(seg(t, T.alert + 3.3, T.alert + 3.6));
+  }
+  { const bq = E.o(seg(t, T.alert + .2, T.alert + 1.0)) * (1 - seg(t, T.fin - .1, T.fin + .3)); vis(bell, bq * .16);
+    if (bq > 0) { setW(bell, -120, -40, -600, 1400, 1400); const ring = seg(t, T.alert + 3.25, T.alert + 5.0), amp = 4 + 14 * Math.sin(Math.PI * Math.min(1, ring * 1.4)) * (1 - ring * .5);
+      $('#bellG').style.transform = `rotate(${amp * Math.sin(tv * (ring > 0 ? 9 : 1.6))}deg)`;
+      bRings.forEach((c, i) => { const q = (ring * 2.2 + i * .33) % 1; c.setAttribute('r', 40 + q * 30); c.style.opacity = ring > 0 && ring < 1 ? (1 - q) * 1.5 : 0; }); } }
   { const q = E.o5(seg(t, T.alert + 3.55, T.alert + 3.95)), o = seg(t, T.fin - .1, T.fin + .2); const el = $('#alB'); vis(el, q * (1 - o));
-    el.style.transform = `translate(${0}px,${lerp(180, 0, q)}px) scale(${lerp(.45, 1, q) * (1 + .012 * Math.sin(tv * 2.4))})`; }
+    el.style.transform = `translate(0px,${lerp(-120, 0, q)}px) scale(${lerp(.55, 1, q) * (1 + .012 * Math.sin(tv * 2.4))})`; }
 }
 
 /* ---------------- OVERLAY: theses, readouts ---------------- */
@@ -367,7 +399,7 @@ const CAPS = [
   { in: T.poly + .15, out: CUT + .5, t: 'Explore <em>the market.</em>', s: 'GRAMFI × POLYMARKET', sh: T.poly + .8 },
   { in: CUT + .75, out: D + .25, t: 'Act <em>in Telegram.</em>', s: 'GRAMFI-POLYMARKET BOT' },
   { in: D + .386, out: T.copy - .35, t: 'Bet <em>in a few taps.</em>', s: 'POLYMARKET BOT · BET', sh: D + 1.15 },
-  { in: T.copy + .262, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING', sh: T.copy + 1.3, r: 1 },
+  { in: T.copy + .262, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING · MIRROR THEIR MARKET TRADES', sh: T.copy + 1.3, r: 1 },
   { in: T.auto + .175, out: T.perp - .3, t: 'Define <em>your rules.</em>', s: 'AUTOTRADING · BTC 5-MIN ROUNDS', sh: T.auto + .85 },
   { in: T.perp + .178, out: T.alert - .3, t: 'Trade <em>perpetual futures.</em>', s: 'PERPS · LONG OR SHORT', sh: T.perp + 1.229 },
   { in: T.alert + .14, out: T.fin - .3, t: 'Stay <em>informed.</em>', s: 'PRICE ALERTS', sh: T.alert + .9 },
@@ -382,10 +414,10 @@ CAPS.forEach(c => {
 // readouts: the must-read fragment, lifted out of the interface at 56–64 px, with a connector to its source
 const ROS = [
   { id: 'r1', t0: T.A + 2.1, t1: T.ai - .25, anc: '#tile_Bitcoin', side: 'r', w: 640, html: `<div class="k">BITCOIN · SHARE OF TELEGRAM MENTIONS · 24H</div><div class="v"><em>11.86%</em></div>` },
-  { id: 'r2', t0: T.ai + 1.85, t1: T.ctry - .25, anc: '#aiHl', side: 'l', w: 880, html: `<div class="k">✦ AI ANALYSIS · BITCOIN</div><div class="v" style="font-size:54px">BlackRock's IBIT moved <em>1,698 BTC</em> to Coinbase Prime…</div>` },
-  { id: 'r3', t0: T.ctry + 1.65, t1: T.top - .05, anc: '#krBtc', side: 'l', w: 620, html: `<div class="k">KOREA · SHARE OF MENTIONS</div><div class="v">BTC <em>19%</em> · #2</div>` },
-  { id: 'r5', t0: T.map + 2.7, t1: T.tele - .25, anc: '#mapInfo', side: 'r', w: 640, html: `<div class="k">EXAMPLE CHANNEL</div><div class="v">Forwarded by <em>16 channels</em></div>` },
-  { id: 'r6', t0: T.tele + 1.65, t1: T.poly - .2, anc: '#starPost', side: 'r', w: 1080, html: `<div style="display:flex;gap:16px;align-items:center;margin-bottom:12px"><span style="width:54px;height:54px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:26px">E</span><div><b style="font-size:28px">Example Channel</b> <span class="ex" style="font-size:14px">EXAMPLE</span><div style="font-size:20px;color:#9AA095">10/27/2026 · 14:50</div></div></div><div class="v" style="font-size:56px">Will BTC close above $80K on Oct 30? Polymarket shows <em>43% YES.</em></div><div class="s" style="color:#6AB3F3">Open in Telegram ↗</div>` },
+  { id: 'r2', t0: T.ai + 1.85, t1: T.ctry - .25, anc: '#aiHl', side: 'l', w: 880, html: `<div class="k">✦ AI ANALYSIS · BITCOIN</div><div class="v" style="font-size:54px">BlackRock's IBIT moved <em>1,698 BTC</em> to Coinbase Prime</div>` },
+  { id: 'r3', t0: T.ctry + 1.3, t1: T.top - .5, anc: '#krBtc', side: 'l', w: 620, html: `<div class="k">KOREA · SHARE OF MENTIONS</div><div class="v">BTC <em>19%</em> · #2</div>` },
+  { id: 'r5', t0: T.map + 2.7, t1: T.tele - .25, anc: '#mapInfo', side: 'r', w: 640, html: `<div class="k">CRYPTO CHANNEL</div><div class="v">Forwarded by <em>16 channels</em></div>` },
+  { id: 'r6', t0: T.tele + 1.65, t1: T.poly - .2, anc: '#starPost', side: 'r', w: 1080, html: `<div style="display:flex;gap:16px;align-items:center;margin-bottom:12px"><span style="width:54px;height:54px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:26px">E</span><div><b style="font-size:28px">Crypto Channel</b> <span class="ex" style="font-size:14px">EXAMPLE</span><div style="font-size:20px;color:#9AA095">10/27/2026 · 14:50</div></div></div><div class="v" style="font-size:56px">Will BTC close above $80K on Oct 30? Polymarket shows <em>43% YES.</em></div><div class="s" style="color:#6AB3F3">Open in Telegram ↗</div>` },
 ];
 const rosEl = $('#ros'), conn = $('#conn');
 ROS.forEach(r => { r.el = H(`<div class="ro" style="width:${r.w}px">${r.html}</div>`); rosEl.appendChild(r.el); r.line = S('line', { stroke: '#EAFF00', 'stroke-width': 3, 'stroke-dasharray': '2 8', 'stroke-linecap': 'round' }, conn); r.dot = S('circle', { r: 8, fill: '#EAFF00' }, conn); });
@@ -397,8 +429,8 @@ const NMS = [['Whales Guide', '🐋 <span class="tg">$BTC</span> 1,698 moved to 
   ['GEMHUNT', 'narrative: Layer 1 🔥'], ['Market Twits', '<span class="tg">$BTC</span> dominance 58%'], ['Coin Haonoto', 'gm ☀️ wagmi'], ['My Proxy', '<span class="tg">$SOL</span> under $100']];
 const nmsgs = []; { const r = rng(17); for (let i = 0; i < 48; i++) { const [n, txt] = NMS[i % NMS.length]; const el = H(`<div class="nmsg"><b>${n}</b>${txt}</div>`); intro.appendChild(el); nmsgs.push({ el, col: i % 7, layer: i % 3, off: r() * 1400, sp: 170 + r() * 140, tile: i < 14 ? i : -1 }); } }
 intro.insertAdjacentHTML('beforeend', `<div id="iscrim" style="position:absolute;inset:0;background:radial-gradient(1000px 420px at 50% 50%,rgba(9,10,8,.92),rgba(9,10,8,.35) 70%,transparent)"></div>
-  <div class="ctxt" id="it1" style="top:470px;font-size:80px">Crypto moves in <span style="color:#6AB3F3">conversation.</span></div>
-  <div id="it3" style="position:absolute;left:0;right:0;top:380px;text-align:center"><div style="display:inline-flex;align-items:center;gap:20px;font-family:Unbounded;font-weight:800;font-size:56px">${LOGO(84)}GramFi</div><div class="ctxt" style="position:static;font-size:80px;margin-top:26px">See the <span style="color:#EAFF00">bigger picture.</span></div></div>
+  <div class="ctxt" id="it1" style="top:470px;font-size:72px">Crypto news breaks <span style="color:#6AB3F3">in Telegram first.</span></div>
+  <div id="it3" style="position:absolute;left:0;right:0;top:330px;text-align:center"><div style="display:inline-flex;align-items:center;gap:20px;font-family:Unbounded;font-weight:800;font-size:56px">${LOGO(84)}GramFi</div><div class="ctxt" style="position:static;font-size:62px;line-height:1.12;margin-top:26px">GramFi reads crypto Telegram<br><span style="color:#EAFF00">and shows what matters.</span></div></div>
   <svg id="iplane" width="1920" height="1080" style="position:absolute;inset:0;overflow:visible"><g id="itrail"></g><g id="imark">${MARK('#EAFF00', '#090A08')}</g></svg>`);
 const itrail = $('#itrail'); const trailDots = []; for (let i = 0; i < 60; i++) trailDots.push(S('circle', { r: 3.5, fill: '#EAFF00' }, itrail));
 const planeAt = u => [lerp(-200, 2150, u), 640 - Math.sin(u * Math.PI) * 200 + Math.sin(u * 9) * 18];
@@ -409,7 +441,7 @@ const miniTree = `<svg width="300" height="190" viewBox="0 0 300 190">${[[0, 0, 
 const miniMsg = `<div style="width:300px;height:190px;border-radius:14px;background:#15181A;border:1px solid #2A2E31;padding:18px;text-align:left"><div style="display:flex;gap:10px;align-items:center;margin-bottom:12px"><span style="width:36px;height:36px;border-radius:50%;background:#3A3F3A"></span><span style="height:12px;width:120px;border-radius:6px;background:#3A3F3A"></span></div><div style="height:12px;border-radius:6px;background:#EAFF00;width:90%;margin-bottom:10px"></div><div style="height:12px;border-radius:6px;background:#3A3F3A;width:75%;margin-bottom:10px"></div><div style="height:12px;border-radius:6px;background:#3A3F3A;width:55%"></div><div style="margin-top:14px;color:#A98BFF;font-weight:800;font-size:18px">✦ AI Analysis</div></div>`;
 const miniTg = `<div style="width:190px;height:190px;border-radius:50%;background:#2EA6FF;display:flex;align-items:center;justify-content:center;margin:0 auto"><svg width="110" height="110" viewBox="0 0 24 24"><path d="M20.7 3.6L2.9 10.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.5 3.3c.8.5 1.4.2 1.6-.8l2.9-13.9c.3-1.2-.4-1.7-1.4-1.1z" fill="#fff"/></svg></div>`;
 outro.innerHTML = `<div id="oBg" style="position:absolute;inset:0;background:radial-gradient(1200px 700px at 50% 45%,rgba(234,255,0,.10),transparent 70%),#090A08"></div>
-  <div id="fgrp" style="position:absolute;inset:0;transform-origin:960px 500px">${[['See.', miniTree, 400], ['Understand.', miniMsg, 960], ['Act.', miniTg, 1520]].map(([w, img, x], i) => `<div class="fcard" style="position:absolute;left:${x - 270}px;top:330px;width:540px;text-align:center"><div style="height:220px;display:flex;align-items:center;justify-content:center">${img}</div><div style="font-family:Unbounded;font-weight:800;font-size:64px;letter-spacing:-.03em;margin-top:30px;color:${i === 2 ? '#EAFF00' : '#fff'}">${w}</div></div>`).join('')}</div>
+  <div id="fgrp" style="position:absolute;inset:0;transform-origin:960px 500px">${[['See.', miniTree, 400], ['Understand.', miniMsg, 960], ['Act.', miniTg, 1520]].map(([w, img, x], i) => `<div class="fcard" style="position:absolute;left:${x - 270}px;top:330px;width:540px;text-align:center"><div style="height:220px;display:flex;align-items:center;justify-content:center">${img}</div><div style="font-family:Unbounded;font-weight:800;font-size:64px;letter-spacing:-.03em;margin-top:30px;color:#fff">${w}</div></div>`).join('')}</div>
   <div id="oCore" style="position:absolute;left:0;right:0;top:250px;text-align:center"><div id="oLogo" style="display:inline-block">${LOGO(180)}</div>
    <div id="oCta" style="font-family:Unbounded;font-weight:800;font-size:84px;letter-spacing:-.03em;color:#fff;margin-top:26px">Explore <span style="color:#EAFF00">GramFi</span></div>
    <div id="oUrl" style="display:inline-block;margin-top:26px;font-family:'JetBrains Mono';font-weight:700;font-size:36px;background:#EAFF00;color:#12140F;border-radius:999px;padding:14px 40px">gramfi.ai</div>
@@ -428,6 +460,7 @@ const CUR = [
   { t: T.ai + 2.2, sel: '#aiHl', fx: .8, fy: 1.6 },
   { t: T.ctry - .12, sel: '#sb_ctry', c: 1 },
   { t: T.ctry + .95, sel: '#c_kr', fx: .4, c: 1 },
+  { t: T.ctry + 1.7, sel: '#krBtc', fx: .96, fy: .6 },
   { t: T.top - .12, sel: '#sb_top', c: 1 },
   { t: T.map - .12, sel: '#sb_map', c: 1 },
   { t: T.map + .6, sel: '#mapInp', fx: .25, c: 1 },
@@ -501,7 +534,7 @@ const PK = [PPK(D, PH.x, 0, 300, -4, 0, 0), PPK(D + .643, 430, 0, 300, -6), PPK(
   PPK(T.copy + .7, -500, 10, 300, 8), PPK(T.auto, -500, 10, 300, 8),                                // copy: slides across to the left
   PPK(T.auto + .7, 846, 95, -500, -16), PPK(T.perp, 846, 95, -500, -16),                            // auto: recedes into the corner
   PPK(T.perp + .4, 846, 1500, -500, -16, 8, 0), PPK(T.perp + .8, 0, 1400, -58, 0, -6, 0), PPK(T.perp + 1.4, 0, 58, -58, 0), // perps: drops out, rises in front of the chart
-  PPK(T.alert, 0, 58, -58, 0), PPK(T.alert + .49, 0, 40, 40, 0), PPK(T.fin, 0, 40, 40, 0)];          // alert: steps closer
+  PPK(T.alert, 0, 58, -58, 0), PPK(T.alert + .6, 430, 0, 300, -6), PPK(T.fin, 430, 0, 300, -6)];          // alert: moves aside for the explanation
 function phonePose(t) {
   const t0 = CUT + .9; if (t < t0) return null;
   const f = seg(t, t0, D - .08), fe = E.o5(f);
@@ -509,7 +542,7 @@ function phonePose(t) {
   let s = lerp(.08, 1, E.ob(seg(t, t0, D + .05))), ry = lerp(-60, -4, fe), rz = lerp(12, 0, fe), rx = lerp(25, 0, fe);
   if (t > D) { x = spline(PK, t, 'x'); y = spline(PK, t, 'y'); z = spline(PK, t, 'z'); ry = spline(PK, t, 'ry'); rz = spline(PK, t, 'rz'); rx = 0; }
   const o = E.io(seg(t, T.fin, T.fin + .9)); z = lerp(z, -900, o); s = lerp(s, .5, o);
-  const dim = 1 - .45 * E.io(seg(t, T.alert + 3.55, T.alert + 3.95));
+  const dim = 1 - .3 * E.io(seg(t, T.alert + 3.55, T.alert + 3.95));
   return { x, y, z, s, rx, ry, rz, op: clamp(seg(t, t0, t0 + .12)) * (1 - seg(t, T.fin + .3, T.fin + .9)) * dim };
 }
 
@@ -637,7 +670,7 @@ function renderOutro(t) {
   const s = T.fin;
   // the one colour wave of the film: a lime ring sweeps out from the phone and leaves the finale behind it
   const wq = seg(t, s - .02, s + .7);
-  if (wq > 0 && wq < 1) { const r = E.io(wq) * 2300, cx = 960, cy = 580; const ring = $('#wRing'); ring.style.left = (cx - r) + 'px'; ring.style.top = (cy - r) + 'px'; ring.style.width = ring.style.height = 2 * r + 'px'; ring.style.borderWidth = lerp(40, 160, wq) + 'px';
+  if (wq > 0 && wq < 1) { const r = E.io(wq) * 2300, cx = 1390, cy = 540; const ring = $('#wRing'); ring.style.left = (cx - r) + 'px'; ring.style.top = (cy - r) + 'px'; ring.style.width = ring.style.height = 2 * r + 'px'; ring.style.borderWidth = lerp(40, 160, wq) + 'px';
     $('#wDark').style.clipPath = `circle(${Math.max(0, r - 80)}px at ${cx}px ${cy}px)`; vis(wave, 1); } else vis(wave, 0);
   const on = t > s + .3; vis(outro, on ? 1 : 0); if (!on) return;
   // three fixed columns; after a short hold the whole group recedes as one, then the logo arrives on its own
@@ -677,6 +710,12 @@ function pMpc(t) {
   const s = T.A, sel = E.io(seg(t, s + 1.55, s + 1.95)) * (1 - E.io(seg(t, T.ai + .6, T.ai + 1.0)));
   const outl = E.io(seg(t, s + 1.55, s + 1.95));
   tiles.forEach((el, i) => { const isB = i === 0; el.style.opacity = isB ? 1 : 1 - .6 * sel; el.style.zIndex = isB ? 2 : 1; el.style.boxShadow = isB ? `inset 0 0 0 ${4 * outl}px #EAFF00, 0 0 ${outl * (14 + 10 * Math.sin(TV * 4))}px rgba(234,255,0,.5)` : 'none'; });
+  tiles.forEach((el, i) => { if (i) el.style.filter = `brightness(${(1 + .08 * Math.sin(TV * 1.7 + i * 1.3)).toFixed(3)})`; });
+  $$('.mt .r:not(.h)', pg_mpc).forEach((r, k) => { const q = E.o5(seg(t, 3.5 + k * .035, 3.95 + k * .035)); r.style.opacity = q; r.style.transform = `translateX(${(1 - q) * 26}px)`;
+    const f = t > T.A && (Math.floor(TV * 2.4) * 7 + k * 5) % 13 === 0; r.style.background = f ? (k % 3 ? 'rgba(43,212,125,.12)' : 'rgba(255,92,96,.12)') : 'transparent'; });
+  $$('#btcPanel circle').forEach((c, k, a) => { const q = E.ob(seg(t, T.ai + 1.15 + k * .045, T.ai + 1.45 + k * .045)); c.setAttribute('r', (3.5 * q * (k === a.length - 1 ? 1 + .5 * (.5 + .5 * Math.sin(TV * 5)) : 1)).toFixed(2)); });
+  $$('#aiBox li').forEach((li, k) => { const q = E.o(seg(t, T.ai + 1.25 + k * .3, T.ai + 1.6 + k * .3)); li.style.opacity = .1 + .9 * q; li.style.transform = `translateY(${(1 - q) * 10}px)`; });
+  $('#aiHl').style.boxShadow = `0 0 ${(10 + 8 * Math.sin(TV * 4)) * E.io(seg(t, T.ai + 1.55, T.ai + 1.9))}px rgba(234,255,0,.45)`;
   const ai = hoverState($('#aiBtc'), t); $('#aiBtc').className = 'aiic' + (ai.hv ? ' hv' : '');
   const pq = E.o5(seg(t, T.ai + .8, T.ai + 1.25)); $('#btcPanel').style.transform = `translateX(${(1 - pq) * 840}px)`; vis($('#btcPanel'), pq > 0 ? 1 : 0); vis($('#mpcDim'), pq * .9);
   $('#mpcDim').style.backdropFilter = pq > .05 ? `blur(${(4 * pq).toFixed(1)}px)` : 'none';
@@ -713,7 +752,7 @@ function pMap(t) {
   c.globalAlpha = 1;
   if (t > s + 1.6) { c.fillStyle = '#EAFF00'; c.beginPath(); c.arc(tg.x, tg.y, 15, 0, 7); c.fill(); c.strokeStyle = 'rgba(234,255,0,.5)'; c.lineWidth = 3 / z; c.beginPath(); c.arc(tg.x, tg.y, 26, 0, 7); c.stroke(); }
   $('#lgFwd').style.opacity = E.o(seg(t, s + 2.2, s + 2.6));
-  const typed = 'Example Channel', n = Math.round(typed.length * seg(t, s + .72, s + 1.35)), focused = t >= s + .6;
+  const typed = 'Crypto Channel', n = Math.round(typed.length * seg(t, s + .72, s + 1.35)), focused = t >= s + .6;
   $('#mapInp').className = 'inp' + (focused ? ' f' : ''); $('#mapTxt').textContent = n > 0 ? typed.slice(0, n) : 'Search channel name'; $('#caret').style.opacity = focused && t < s + 1.6 ? 1 : 0;
   const hb = hoverState($('#mapBtn'), t); $('#mapBtn').className = 'btn' + (hb.hv || t > s + 1.55 ? ' lime' : ''); $('#mapBtn').style.transform = `scale(${1 - hb.pr * .08})`;
   const sx = (tg.x - fx) * z + Wd / 2, sy = (tg.y - fy) * z + Hh / 2, ic = E.o5(seg(t, s + 2.4, s + 2.7)), info = $('#mapInfo');
