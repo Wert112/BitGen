@@ -219,14 +219,14 @@ const pg_poly = addPage(H(`<div class="page">
    <div class="mcard"><div class="h"><i style="background:#627EEA">Ξ</i>Ethereum (ETH)</div>${[['ETH above $2,500 on Oct 30?', 21], ['ETH all time high by Dec 31, 2026?', 4], ['ETH reach $5,000 by Dec 31, 2026?', 6]].map(([q, y]) => `<div class="mrow"><span>${q}</span><span class="yn y">Yes ${y}%</span></div>`).join('')}</div>
    <div class="mcard"><div class="h"><i style="background:#7A4CF2">S</i>Solana (SOL)</div>${[['SOL above $120 on Oct 30?', 14], ['SOL all time high by June 30, 2027?', 5], ['SOL reach $500 by Dec 31, 2026?', 2]].map(([q, y]) => `<div class="mrow"><span>${q}</span><span class="yn y">Yes ${y}%</span></div>`).join('')}</div></div>
   <div id="modal"><div class="mh">${MARKET}<span style="margin-left:auto;display:flex;gap:8px"><span class="btn">★</span><span class="btn lime">Trade</span><span class="btn">Close</span></span></div>
-   <div style="position:absolute;left:16px;top:74px;width:300px">
+   <div style="position:absolute;left:16px;top:100px;width:300px">
     <div class="aibox" style="display:flex;gap:12px"><div style="width:110px;height:110px;border-radius:6px;background:radial-gradient(circle at 40% 35%,#FFB547,#F7931A 60%,#8A4B00);display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;flex:none">₿</div><div><b style="font-size:15px;line-height:1.3;display:block">${MARKET}</b><div style="font-size:12px;color:#999;margin-top:8px">End: 2026-10-30</div><div style="font-size:12px;color:#999">Created: 2026-10-23</div></div></div>
     <div style="margin-top:4px"><span class="tagb" style="color:#2BD47D;border-color:#2BD47D">Accepting Orders</span><span class="tagb" style="color:#EAFF00;border-color:#8A9A00">Crypto</span><span class="tagb" style="color:#FF9A9D;border-color:#6A2428">Bitcoin</span></div>
     <div class="aibox" style="margin-top:6px"><h4>Probability</h4><div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span class="up">Yes 43%</span><span class="dn">No 57%</span></div><div style="height:6px;border-radius:3px;background:linear-gradient(90deg,#2BD47D 43%,#FF5C60 43%);margin:12px 0 14px"></div>
-     <div id="mentBox" style="border:1px solid #6A7A00;background:rgba(234,255,0,.06);border-radius:4px;padding:10px 12px;font-size:13px"><b style="color:#EAFF00">$BTC</b>&nbsp; 1224 Telegram mentions (24h)</div></div></div>
-   <div style="position:absolute;left:330px;top:74px;width:300px"><div class="aibox"><h4>Price History <span style="color:#2BD47D;font-size:13px">Yes</span></h4><div style="color:#2BD47D;font-size:22px;font-weight:700">43%</div><svg width="264" height="130"><path d="M0,80 L30,76 L60,84 L90,70 L120,72 L150,60 L180,66 L210,58 L240,62 L264,56" fill="none" stroke="#2BD47D" stroke-width="2"/></svg></div>
+     <div id="mentBox" style="border:1px solid #6A7A00;background:rgba(234,255,0,.06);border-radius:4px;padding:12px 12px;font-size:16px;font-weight:600"><b style="color:#EAFF00">$BTC</b>&nbsp; 1224 Telegram mentions (24h)</div></div></div>
+   <div style="position:absolute;left:330px;top:100px;width:300px"><div class="aibox"><h4>Price History <span style="color:#2BD47D;font-size:13px">Yes</span></h4><div style="color:#2BD47D;font-size:22px;font-weight:700">43%</div><svg width="264" height="130"><path d="M0,80 L30,76 L60,84 L90,70 L120,72 L150,60 L180,66 L210,58 L240,62 L264,56" fill="none" stroke="#2BD47D" stroke-width="2"/></svg></div>
     <div class="aibox" style="margin-top:12px"><h4>Order Book</h4>${['0.47 2 554', '0.46 1 867', '0.45 1 020', '0.44 4 086'].map(r => { const [p, ...s] = r.split(' '); return `<div class="obr"><span class="dn">$${p}</span><span>${s.join(' ')}</span><span>—</span></div>`; }).join('')}<div style="text-align:center;color:#EAFF00;font-size:12px;margin:6px 0">Spread: +0.01</div>${['0.43 2 936', '0.42 11 356', '0.41 9 588'].map(r => { const [p, ...s] = r.split(' '); return `<div class="obr"><span class="up">$${p}</span><span>${s.join(' ')}</span><span>—</span></div>`; }).join('')}</div></div>
-   <div id="aiMk" style="position:absolute;left:646px;top:74px;right:16px"><div style="display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;margin-bottom:12px">✦ AI Analysis — Bitcoin <span style="font-size:12px;color:#EAFF00;border:1px solid #6A7A00;padding:2px 6px;border-radius:4px">5519</span><span style="margin-left:auto;font-size:11px;color:#888">PERIOD ALL ▾</span></div>
+   <div id="aiMk" style="position:absolute;left:646px;top:100px;right:16px"><div style="display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;margin-bottom:12px">✦ AI Analysis — Bitcoin <span style="font-size:12px;color:#EAFF00;border:1px solid #6A7A00;padding:2px 6px;border-radius:4px">5519</span><span style="margin-left:auto;font-size:11px;color:#888">PERIOD ALL ▾</span></div>
     <div class="gpt"><div class="gh">GPT Analysis <span>10/27/2026 14:50</span></div><ul><li>Mentions rose sharply because several high-impact news items hit at once: BlackRock's IBIT moved 1,698 BTC to Coinbase Prime, which traders interpreted as a possible sale, while a Japanese whale suddenly withdrew 65 BTC after two quiet years.</li><li>Bitcoin also broke below the key $80,000 level and traded around $79,700, increasing discussion across trading channels.</li></ul></div>
     <div class="gpt"><div class="gh">GPT Analysis <span>10/27/2026 13:45</span></div><ul><li>Binance's announcement that it will delist 12 BTC trading pairs on Oct. 30 is the biggest mention driver.</li></ul></div></div>
   </div>
@@ -241,21 +241,21 @@ const pg_poly = addPage(H(`<div class="page">
 const KB = rows => `<div class="kb">${rows.map(r => `<div class="rw" style="grid-template-columns:repeat(${r.length},1fr)">${r.map(b => { const [lbl, id] = Array.isArray(b) ? b : [b, '']; return `<div class="kbtn"${id ? ` id="${id}"` : ''}>${lbl}</div>`; }).join('')}</div>`).join('')}</div>`;
 const CANDLES = (w, h) => { const r = rng(21); let y = h * .65, s = ''; for (let i = 0; i < 22; i++) { const up = r() > .38, b = 6 + r() * 16, x = 6 + i * (w - 12) / 22; const y2 = y + (up ? -b : b); const top = Math.min(y, y2), bh = Math.max(3, Math.abs(y2 - y)); s += `<line x1="${x + 4}" x2="${x + 4}" y1="${top - 6 - r() * 6}" y2="${top + bh + 6 + r() * 6}" stroke="${up ? '#2BD47D' : '#FF5C60'}" stroke-width="1.5"/><rect x="${x}" y="${top}" width="8" height="${bh}" rx="1.5" fill="${up ? '#2BD47D' : '#FF5C60'}"/>`; y = y2 - (up ? 2 : -1); } return `<svg width="${w}" height="${h}">${s}</svg>`; };
 const ST = [
-  ['st_main', D, `<div class="bm">👋 <b>Alex</b> — Your Polymarket trading companion.<br><br>📋 <span class="k2">0x2b7e4c…9f0b</span><br>💵 <b>pUSD:</b> <span class="k2">$248.60</span> 🔄<br><br>📊 No open positions<br><br><i>💡 Paste a Polymarket link or type keywords to search any market.</i><span class="tm">14:55</span></div>` + KB([['🎯 Markets', '👥 Copy Trading'], ['🤖 Autotrading'], ['⚡ Perps'], ['📊 Portfolio', '💼 Wallet']])],
-  ['st_card', D + 1.4, `<div class="bm">📝 <b>${MARKET}</b><br><br>💰 Current prices:<br>✅ Yes: <b>43¢</b><br>❌ No: <b>57¢</b><span class="tm">14:56</span></div>` + KB([[['✅ Yes 43¢', 'b_yes']], ['❌ No 57¢'], ['📜 History'], ['🔖 Watch', '🔔 Set Alert'], ['⬅️ Back']])],
-  ['st_amt', D + 2.85, `<div class="bm">💰 <b>Buying ✅ Yes</b> · 43¢<br><br>📋 <b>${MARKET}</b><br><br>How much would you like to bet?<span class="tm">14:56</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
-  ['st_conf', D + 3.65, `<div class="bm">⚡ <b>Confirm your bet</b><br><br>${MARKET}<br><br>✅ Outcome: <b>YES</b><br>💰 Amount: <b>10.00 pUSD</b><br>💲 Price: 43.0¢ · Shares ≈ 23.26<br>🏆 If YES wins: <b>23.26 pUSD</b> (before fees)<span class="tm">14:56</span></div>` + KB([[['<span id="placeLbl">✅ Place order</span><span id="placeSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin1"></span>Placing order…</span>', 'b_place']], ['⬅️ Back']])],
-  ['st_fill', D + 8.03, `<div class="bm">✅ <b>Order filled</b><br><br>23.26 <b>YES</b> shares @ 43¢ · cost 10.00 pUSD<br>Balance: 238.60 pUSD<span class="tm">14:57</span></div>` + KB([['◉ Open', '○ History', '○ Stats'], ['⬅️ Back']])],
-  ['st_top', T.copy + .03, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>sharp_sports</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>macro_mind</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tm">14:58</span></div>` + KB([['⬅️ Back']])],
-  ['st_tracked', T.copy + 1.3, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · sharp_sports —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tm">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
-  ['st_lab', T.auto + .03, `<div class="bm">🧪 <b>Strategy Lab</b> · BTC 5m Up/Down<br><br><span style="color:#C9D6E2">Buy the side trading in your price band near the end of a round. Every rule starts on paper.</span><br><br><span class="k2">Price band</span> 80–96¢ · <span class="k2">Size</span> $2.00<span class="tm">14:59</span></div>` + KB([['Asset', 'Side', ['Price band', 'b_band']], [['▶️ Start on paper', 'b_paper']], ['⬅️ Back']])],
-  ['st_run', T.auto + 2.3, `<div class="bm">✅ <b>Strategy saved</b> · BTC 5m Up/Down<br><br>Mode: <b>📄 Paper</b> — no real funds used<br>Price band 80–96¢ · $2.00 per trade<span class="tm">14:59</span></div>` + KB([['📊 Paper results'], ['⬅️ Back']])],
-  ['st_perp', T.perp + .03, `<div class="bm">⚡ <b>Perpetual futures</b> · BTC-USD<br><b style="font-size:22px">79,843</b> <b style="color:#FF5C60">−0.57%</b> <span class="lnk">15m</span><div style="margin:8px 0 6px;background:#0F1A25;border-radius:12px;padding:8px">${CANDLES(360, 110)}</div>Leverage up to <b>×50</b> · long or short<span class="tm">15:00</span></div>` + KB([[['📈 Long', 'b_long'], '📉 Short'], ['⬅️ Back', '🕒 15m', '🔄']])],
-  ['st_long', T.perp + 1.1, `<div class="bm">📈 <b>Long BTC ×3</b> — profits if BTC rises<br><br>Margin <b>$22.50</b> · Position <b>$67.50</b><br>Liquidation ≈ <b>53,600</b><span class="tm">15:00</span></div>` + KB([['$10', '$25', '$50', 'Max'], ['×1', '✓ ×3', '×10', '×50'], [['<span id="openLbl">✅ Open long</span><span id="openSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin2"></span>Opening…</span>', 'b_open']], ['⬅️ Back']])],
-  ['st_open', T.perp + 3.0, `<div class="bm">✅ <b>Long BTC ×3 opened</b><br><br>Entry <b>79,860</b> · margin $22.50<br>Liquidation ≈ 53,600<span class="tm">15:00</span></div>` + KB([['📍 My positions'], ['⬅️ Back']])],
-  ['st_aopt', T.alert + .03, `<div class="bm">🔔 <b>${MARKET}</b><br><br>Choose outcome and direction:<span class="tm">15:01</span></div>` + KB([[['✅ YES 📈 (43¢)', 'b_yesup'], '✅ YES 📉 (43¢)'], ['❌ NO 📈 (57¢)', '❌ NO 📉 (57¢)'], ['⬅️ Back']])],
-  ['st_aprompt', T.alert + .8, `<div class="bm">🔔 ✅ <b>YES 📈</b> · now 43¢<br><br>Send the price to alert at (in ¢):<span class="tm">15:01</span></div>`],
-  ['st_aset', T.alert + 1.6, `<div class="bm">🔔 <b>Alert set</b><br><br>YES 📈 at <b>45¢</b><br><i>${MARKET}</i><span class="tm">15:01</span></div>` + KB([['🔔 My alerts'], ['⬅️ Back']])],
+  ['st_main', D, `<div class="bm">👋 <b>Alex</b> — Your Polymarket trading companion.<br><br>📋 <span class="k2">0x2b7e4c…9f0b</span><br>💵 <b>pUSD:</b> <span class="k2">$248.60</span> 🔄<br><br>📊 No open positions<br><br><i>💡 Paste a Polymarket link or type keywords to search any market.</i><span class="tme">14:55</span></div>` + KB([['🎯 Markets', '👥 Copy Trading'], ['🤖 Autotrading'], ['⚡ Perps'], ['📊 Portfolio', '💼 Wallet']])],
+  ['st_card', D + 1.4, `<div class="bm">📝 <b>${MARKET}</b><br><br>💰 Current prices:<br>✅ Yes: <b>43¢</b><br>❌ No: <b>57¢</b><span class="tme">14:56</span></div>` + KB([[['✅ Yes 43¢', 'b_yes']], ['❌ No 57¢'], ['📜 History'], ['🔖 Watch', '🔔 Set Alert'], ['⬅️ Back']])],
+  ['st_amt', D + 2.85, `<div class="bm">💰 <b>Buying ✅ Yes</b> · 43¢<br><br>📋 <b>${MARKET}</b><br><br>How much would you like to bet?<span class="tme">14:56</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
+  ['st_conf', D + 3.65, `<div class="bm">⚡ <b>Confirm your bet</b><br><br>${MARKET}<br><br>✅ Outcome: <b>YES</b><br>💰 Amount: <b>10.00 pUSD</b><br>💲 Price: 43.0¢ · Shares ≈ 23.26<br>🏆 If YES wins: <b>23.26 pUSD</b> (before fees)<span class="tme">14:56</span></div>` + KB([[['<span id="placeLbl">✅ Place order</span><span id="placeSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin1"></span>Placing order…</span>', 'b_place']], ['⬅️ Back']])],
+  ['st_fill', D + 8.03, `<div class="bm">✅ <b>Order filled</b><br><br>23.26 <b>YES</b> shares @ 43¢ · cost 10.00 pUSD<br>Balance: 238.60 pUSD<span class="tme">14:57</span></div>` + KB([['◉ Open', '○ History', '○ Stats'], ['⬅️ Back']])],
+  ['st_top', T.copy + .03, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>sharp_sports</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>macro_mind</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tme">14:58</span></div>` + KB([['⬅️ Back']])],
+  ['st_tracked', T.copy + 1.3, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · sharp_sports —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tme">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
+  ['st_lab', T.auto + .03, `<div class="bm">🧪 <b>Strategy Lab</b> · BTC 5m Up/Down<br><br><span style="color:#C9D6E2">Buy the side trading in your price band near the end of a round. Every rule starts on paper.</span><br><br><span class="k2">Price band</span> 80–96¢ · <span class="k2">Size</span> $2.00<span class="tme">14:59</span></div>` + KB([['Asset', 'Side', ['Price band', 'b_band']], [['▶️ Start on paper', 'b_paper']], ['⬅️ Back']])],
+  ['st_run', T.auto + 2.3, `<div class="bm">✅ <b>Strategy saved</b> · BTC 5m Up/Down<br><br>Mode: <b>📄 Paper</b> — no real funds used<br>Price band 80–96¢ · $2.00 per trade<span class="tme">14:59</span></div>` + KB([['📊 Paper results'], ['⬅️ Back']])],
+  ['st_perp', T.perp + .03, `<div class="bm">⚡ <b>Perpetual futures</b> · BTC-USD<br><b style="font-size:22px">79,843</b> <b style="color:#FF5C60">−0.57%</b> <span class="lnk">15m</span><div style="margin:8px 0 6px;background:#0F1A25;border-radius:12px;padding:8px">${CANDLES(360, 110)}</div>Leverage up to <b>×50</b> · long or short<span class="tme">15:00</span></div>` + KB([[['📈 Long', 'b_long'], '📉 Short'], ['⬅️ Back', '🕒 15m', '🔄']])],
+  ['st_long', T.perp + 1.1, `<div class="bm">📈 <b>Long BTC ×3</b> — profits if BTC rises<br><br>Margin <b>$22.50</b> · Position <b>$67.50</b><br>Liquidation ≈ <b>53,600</b><span class="tme">15:00</span></div>` + KB([['$10', '$25', '$50', 'Max'], ['×1', '✓ ×3', '×10', '×50'], [['<span id="openLbl">✅ Open long</span><span id="openSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin2"></span>Opening…</span>', 'b_open']], ['⬅️ Back']])],
+  ['st_open', T.perp + 3.0, `<div class="bm">✅ <b>Long BTC ×3 opened</b><br><br>Entry <b>79,860</b> · margin $22.50<br>Liquidation ≈ 53,600<span class="tme">15:00</span></div>` + KB([['📍 My positions'], ['⬅️ Back']])],
+  ['st_aopt', T.alert + .03, `<div class="bm">🔔 <b>${MARKET}</b><br><br>Choose outcome and direction:<span class="tme">15:01</span></div>` + KB([[['✅ YES 📈 (43¢)', 'b_yesup'], '✅ YES 📉 (43¢)'], ['❌ NO 📈 (57¢)', '❌ NO 📉 (57¢)'], ['⬅️ Back']])],
+  ['st_aprompt', T.alert + .8, `<div class="bm">🔔 ✅ <b>YES 📈</b> · now 43¢<br><br>Send the price to alert at (in ¢):<span class="tme">15:01</span></div>`],
+  ['st_aset', T.alert + 1.6, `<div class="bm">🔔 <b>Alert set</b><br><br>YES 📈 at <b>45¢</b><br><i>${MARKET}</i><span class="tme">15:01</span></div>` + KB([['🔔 My alerts'], ['⬅️ Back']])],
 ];
 const phone = H(`<div class="w"><div id="phone"><div id="screen"><div class="wall"></div><div class="island"></div>
   <div class="status"><span>9:41</span><span>●●● ▮</span></div>
@@ -270,19 +270,19 @@ const stEls = ST.map(([id, t]) => ({ el: $('#' + id), t, btns: $$('.kbtn', $('#'
 
 /* ---------------- OVERLAY: theses, readouts ---------------- */
 const CAPS = [
-  { in: T.A + .25, out: T.ai - .3, t: 'See what <em>gets attention.</em>', s: 'MOST POPULAR COIN' },
-  { in: T.ai + .2, out: T.ctry - .3, t: 'Understand <em>the context.</em>', s: 'AI ANALYSIS · BITCOIN' },
-  { in: T.ctry + .15, out: T.top - .25, t: 'Explore <em>regional</em> attention.', s: 'COUNTRY POPULAR COINS' },
+  { in: T.A + .25, out: T.ai - .3, t: 'See what <em>gets attention.</em>', s: 'MOST POPULAR COIN', sh: T.A + 2.0 },
+  { in: T.ai + .2, out: T.ctry - .3, t: 'Understand <em>the context.</em>', s: 'AI ANALYSIS · BITCOIN', sh: T.ai + 1.75 },
+  { in: T.ctry + .15, out: T.top - .25, t: 'Explore <em>regional</em> attention.', s: 'COUNTRY POPULAR COINS', sh: T.ctry + 1.55 },
   { in: T.top + .1, out: T.map - .2, t: 'Explore <em>the channels.</em>', s: 'TOP 10 CHANNELS · RANKED BY RECENT AVG. VIEWS' },
-  { in: T.map + .15, out: T.tele - .3, t: 'Follow <em>the connections.</em>', s: 'CHANNEL MAP · LINKS = MESSAGE FORWARDS' },
-  { in: T.tele + .15, out: T.poly - .3, t: 'Read <em>the source.</em>', s: 'TELESCOPE · POSTS THAT MENTION $BTC' },
-  { in: T.poly + .15, out: CUT + .5, t: 'Bring context to <em>your next step.</em>', s: 'GRAMFI × POLYMARKET' },
+  { in: T.map + .15, out: T.tele - .3, t: 'Follow <em>the connections.</em>', s: 'CHANNEL MAP · LINKS = MESSAGE FORWARDS', sh: T.map + 2.6 },
+  { in: T.tele + .15, out: T.poly - .3, t: 'Read <em>the source.</em>', s: 'TELESCOPE · POSTS THAT MENTION $BTC', sh: T.tele + 1.55 },
+  { in: T.poly + .15, out: CUT + .5, t: 'Explore <em>the market.</em>', s: 'GRAMFI × POLYMARKET', sh: T.poly + .8 },
   { in: CUT + .75, out: D + .25, t: 'Act <em>in Telegram.</em>', s: 'GRAMFI-POLYMARKET BOT' },
-  { in: D + .4, out: T.copy - .35, t: 'Your decision. <em>Your next step.</em>', s: 'POLYMARKET BOT' },
-  { in: T.copy + .1, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING' },
-  { in: T.auto + .1, out: T.perp - .3, t: 'Define <em>your rules.</em>', s: 'AUTOTRADING · PAPER MODE' },
-  { in: T.perp + .1, out: T.alert - .3, t: 'Manage a <em>different market.</em>', s: 'PERPETUAL FUTURES' },
-  { in: T.alert + .1, out: T.fin - .3, t: 'Stay <em>informed.</em>', s: 'PRICE ALERTS' },
+  { in: D + .4, out: T.copy - .35, t: 'Your decision. <em>Your next step.</em>', s: 'POLYMARKET BOT', sh: D + 1.45 },
+  { in: T.copy + .1, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING', sh: T.copy + 1.4 },
+  { in: T.auto + .1, out: T.perp - .3, t: 'Define <em>your rules.</em>', s: 'AUTOTRADING · PAPER MODE', sh: T.auto + .8 },
+  { in: T.perp + .1, out: T.alert - .3, t: 'Trade <em>perpetual futures.</em>', s: 'PERPS · LONG OR SHORT', sh: T.perp + 1.0 },
+  { in: T.alert + .1, out: T.fin - .3, t: 'Stay <em>informed.</em>', s: 'PRICE ALERTS', sh: T.alert + 2.6 },
 ];
 const capsEl = $('#caps');
 CAPS.forEach(c => {
@@ -297,15 +297,8 @@ const ROS = [
   { id: 'r3', t0: T.ctry + 1.65, t1: T.top - .2, anc: '#krBtc', side: 'l', w: 620, html: `<div class="k">KOREA · SHARE OF MENTIONS</div><div class="v">BTC <em>19%</em> · #2</div>` },
   { id: 'r5', t0: T.map + 2.7, t1: T.tele - .25, anc: '#mapInfo', side: 'r', w: 640, html: `<div class="k">EXAMPLE CHANNEL</div><div class="v">Forwarded by <em>16 channels</em></div>` },
   { id: 'r6', t0: T.tele + 1.65, t1: T.poly - .2, anc: '#starPost', side: 'r', w: 1080, html: `<div style="display:flex;gap:16px;align-items:center;margin-bottom:12px"><span style="width:54px;height:54px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:26px">E</span><div><b style="font-size:28px">Example Channel</b> <span class="ex" style="font-size:14px">EXAMPLE</span><div style="font-size:20px;color:#9AA095">10/27/2026 · 14:50</div></div></div><div class="v" style="font-size:56px">Will BTC close above $80K on Oct 30? Polymarket shows <em>43% YES.</em></div><div class="s" style="color:#6AB3F3">Open in Telegram ↗</div>` },
-  { id: 'r7', t0: T.poly + .7, t1: CUT - .05, anc: '#modal .mh', side: 'b', w: 1180, html: `<div class="k">THE SAME MARKET</div><div class="v" style="font-size:56px">${MARKET}</div>` },
-  { id: 'm1', t0: D + 1.6, t1: D + 2.75, anc: '#st_card .bm', side: 'm', w: 820, html: `<div class="k">FOUND IN THE BOT</div><div class="v" style="font-size:52px">${MARKET}</div><div class="s">Yes 43¢ · No 57¢</div>` },
-  { id: 'm2', t0: D + 3.85, t1: D + 7.3, anc: '#st_conf .bm', side: 'm', w: 820, html: `<div class="k">CONFIRM YOUR BET</div><div class="v">Buy YES · <em>10 pUSD</em></div><div class="v" style="font-size:44px;margin-top:10px">If YES wins: 23.26 pUSD<span style="font-size:28px;color:#C4C9C0"> before fees</span></div>` },
-  { id: 'm3', t0: D + 8.15, t1: T.copy - .2, anc: '#st_fill .bm', side: 'm', w: 820, html: `<div class="v"><em>✓</em> Order filled</div><div class="s">23.26 YES shares @ 43¢</div>` },
   { id: 'm4', t0: T.copy + 1.45, t1: T.auto - .2, anc: '#st_tracked .bm', side: 'm', w: 820, html: `<div class="k">TRACKED WALLETS</div><div class="v"><em>✓</em> sharp_sports</div><div class="s">copies 2% of balance per trade</div>` },
-  { id: 'm5', t0: T.auto + .75, t1: T.perp - .2, anc: '#st_lab .bm', side: 'm', w: 820, html: `<div class="k">YOUR RULE · BTC 5m</div><div class="v" style="font-size:46px">Price band <span id="bandTxt">80–96¢</span></div><svg width="740" height="70" style="margin-top:6px"><line x1="20" y1="34" x2="720" y2="34" stroke="#2A2E31" stroke-width="10" stroke-linecap="round"/><line id="bandL" y1="34" y2="34" stroke="#EAFF00" stroke-width="10" stroke-linecap="round"/><circle id="bandA" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/><circle id="bandB" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/></svg><div class="v" id="paperV" style="font-size:44px;margin-top:6px">Mode: <em>paper</em></div>` },
-  { id: 'm6', t0: T.perp + 3.15, t1: T.alert - .2, anc: '#st_open .bm', side: 'm', w: 820, html: `<div class="k">PERPETUAL FUTURES</div><div class="v"><em>✓</em> Long BTC ×3 opened</div><div class="s">entry 79,860 · margin $22.50</div>` },
-  { id: 'm7', t0: T.alert + 1.7, t1: T.alert + 2.6, anc: '#st_aset .bm', side: 'm', w: 820, html: `<div class="k">ALERT SET</div><div class="v">YES 📈 at <em>45¢</em></div>` },
-  { id: 'm8', t0: T.alert + 2.85, t1: T.fin - .2, anc: '#push', side: 'm', w: 820, html: `<div class="k">🔔 NOTIFICATION</div><div class="v"><em>YES reached 45¢</em></div><div class="s">${MARKET}</div>` },
+  { id: 'm5', t0: T.auto + .55, t1: T.perp - .2, anc: '#st_lab .bm', side: 'c', w: 1040, html: `<div class="k">YOUR RULE · BTC 5m UP/DOWN</div><div class="v" style="font-size:64px">Price band <span id="bandTxt">80–96¢</span></div><svg width="960" height="80" style="margin-top:6px"><line x1="20" y1="34" x2="940" y2="34" stroke="#2A2E31" stroke-width="12" stroke-linecap="round"/><line id="bandL" y1="34" y2="34" stroke="#EAFF00" stroke-width="10" stroke-linecap="round"/><circle id="bandA" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/><circle id="bandB" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/></svg><div class="v" id="paperV" style="font-size:60px;margin-top:10px">Mode: <em>paper</em> · no real funds</div>` },
 ];
 const rosEl = $('#ros'), conn = $('#conn');
 ROS.forEach(r => { r.el = H(`<div class="ro" style="width:${r.w}px">${r.html}</div>`); rosEl.appendChild(r.el); r.line = S('line', { stroke: '#EAFF00', 'stroke-width': 3, 'stroke-dasharray': '2 8', 'stroke-linecap': 'round' }, conn); r.dot = S('circle', { r: 8, fill: '#EAFF00' }, conn); });
@@ -329,7 +322,7 @@ const miniTree = `<svg width="300" height="190" viewBox="0 0 300 190">${[[0, 0, 
 const miniMsg = `<div style="width:300px;height:190px;border-radius:14px;background:#15181A;border:1px solid #2A2E31;padding:18px;text-align:left"><div style="display:flex;gap:10px;align-items:center;margin-bottom:12px"><span style="width:36px;height:36px;border-radius:50%;background:#3A3F3A"></span><span style="height:12px;width:120px;border-radius:6px;background:#3A3F3A"></span></div><div style="height:12px;border-radius:6px;background:#EAFF00;width:90%;margin-bottom:10px"></div><div style="height:12px;border-radius:6px;background:#3A3F3A;width:75%;margin-bottom:10px"></div><div style="height:12px;border-radius:6px;background:#3A3F3A;width:55%"></div><div style="margin-top:14px;color:#A98BFF;font-weight:800;font-size:18px">✦ AI Analysis</div></div>`;
 const miniTg = `<div style="width:190px;height:190px;border-radius:50%;background:#2EA6FF;display:flex;align-items:center;justify-content:center;margin:0 auto"><svg width="110" height="110" viewBox="0 0 24 24"><path d="M20.7 3.6L2.9 10.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.5 3.3c.8.5 1.4.2 1.6-.8l2.9-13.9c.3-1.2-.4-1.7-1.4-1.1z" fill="#fff"/></svg></div>`;
 outro.innerHTML = `<div id="oBg" style="position:absolute;inset:0;background:radial-gradient(1200px 700px at 50% 45%,rgba(234,255,0,.10),transparent 70%),#090A08"></div>
-  ${[['See.', miniTree, 400], ['Understand.', miniMsg, 960], ['Act.', miniTg, 1520]].map(([w, img, x], i) => `<div class="fcard" style="position:absolute;left:${x - 270}px;top:330px;width:540px;text-align:center"><div style="height:220px;display:flex;align-items:center;justify-content:center">${img}</div><div style="font-family:Unbounded;font-weight:800;font-size:64px;letter-spacing:-.03em;margin-top:30px;color:${i === 2 ? '#EAFF00' : '#fff'}">${w}</div></div>`).join('')}
+  <div id="fgrp" style="position:absolute;inset:0;transform-origin:960px 500px">${[['See.', miniTree, 400], ['Understand.', miniMsg, 960], ['Act.', miniTg, 1520]].map(([w, img, x], i) => `<div class="fcard" style="position:absolute;left:${x - 270}px;top:330px;width:540px;text-align:center"><div style="height:220px;display:flex;align-items:center;justify-content:center">${img}</div><div style="font-family:Unbounded;font-weight:800;font-size:64px;letter-spacing:-.03em;margin-top:30px;color:${i === 2 ? '#EAFF00' : '#fff'}">${w}</div></div>`).join('')}</div>
   <div id="oCore" style="position:absolute;left:0;right:0;top:250px;text-align:center"><div id="oLogo" style="display:inline-block">${LOGO(180)}</div>
    <div id="oCta" style="font-family:Unbounded;font-weight:800;font-size:84px;letter-spacing:-.03em;color:#fff;margin-top:26px">Explore <span style="color:#EAFF00">GramFi</span></div>
    <div id="oUrl" style="display:inline-block;margin-top:26px;font-family:'JetBrains Mono';font-weight:700;font-size:36px;background:#EAFF00;color:#12140F;border-radius:999px;padding:14px 40px">gramfi.ai</div>
@@ -398,23 +391,43 @@ const CAM = [
   K(T.top + .2, 0, -40, -110, 2.5, -2), K(T.map - .25, 0, -40, -100, 2.5, -1, 0, 1),
   K(T.map + .3, 0, -50, -110, 2.5, 2), K(T.map + .7, 200, -240, 30, 2, -1), K(T.map + 1.7, 40, 0, 30, 2, 0), K(T.map + 2.6, -20, 0, 60, 1.5, 0, 0, 1), K(T.tele - .25, -20, 0, 60, 1.5, 0, 0, 1),
   K(T.tele + .2, 0, -50, -110, 2.5, -2), K(T.tele + .8, 250, -150, -30, 2, -1), K(T.tele + 1.6, -30, -30, 0, 1.5, 0, 0, 1), K(T.poly - .25, -30, -30, 0, 1.5, 0, 0, 1),
-  K(T.poly + .25, 0, -60, -100, 2.5, 2), K(T.poly + .9, 0, -80, -60, 2, 0, 0, 1), K(CUT - .05, 0, -80, -60, 2, 0, 0, 1),
+  K(T.poly + .25, 0, -60, -100, 2.5, 2), K(T.poly + .9, -10, -70, 170, 1.5, 0, 0, 1), K(CUT - .05, -10, -70, 170, 1.5, 0, 0, 1),
   K(CUT + .05, -200, 0, -40, 2, 3), K(CUT + .8, -260, 40, 20, 2, 4), K(D - 1.1, 40, -20, -380, 4, -8, -.8), K(D - .2, 20, 40, -150, 2, -8, -.4),
 ];
 {
   const pR = $('#phone'); const offs = (el, root) => { let x = 0, y = 0, n = el; while (n && n !== root) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return [x, y, el.offsetWidth, el.offsetHeight]; };
-  [D, T.copy, T.auto, T.perp, T.alert].forEach((s, i, arr) => {
-    const e2 = arr[i + 1] ?? T.fin;
-    CAM.push(K(s + .1, 10, 60, -110, 2, i % 2 ? -10 : -6, -.3));
-    TOUCH.filter(e => e.el && e.t > s + .3 && e.t < e2 - .2).forEach(e => { const [x, y, ww, hh] = offs(e.el, pR), ly = y + hh * .5 - 470; CAM.push(K(e.t, 0, clamp(ly * .45, -60, 220), -70, 2, -6, -.2)); });
-  });
+  // a "shot" frames a phone-local point (lx, ly) at screen (sx, sy) with scale sc, held from t0 to t1
+  const SHOT = (t0, t1, lx, ly, sc, sx = 960, sy = 560, ry = -4) => {
+    const x = PH.x + lx - 225 - (sx - 960) / sc, y = ly - 470 - (sy - 540) / sc, d = 2200 - 2200 / sc - PH.z;
+    CAM.push(K(t0, x, y, d, 1.5, ry, 0, 1)); if (t1 > t0 + .25) CAM.push(K(t1, x, y, d, 1.5, ry, 0, 1));
+  };
+  const WIDE = (t0, t1, sc, sx, sy = 600, ry = -4) => SHOT(t0, t1, 225, 470, sc, sx, sy, ry);
+  const ON = (t0, t1, sel, sc, sx, sy, fy = .5, ry = -2) => { const [x, y, w, h] = offs($(sel), pR); SHOT(t0, t1, x + w / 2, y + h * fy, sc, sx, sy, ry); };
+  // bet: whole phone -> read the market -> big confirm in the centre -> big result
+  WIDE(D + .55, D + 1.25, .86, 1250, 620);
+  ON(D + 1.75, D + 2.45, '#st_card .bm', 1.9, 1060, 600);
+  ON(D + 3.0, D + 3.3, '#st_amt', 1.25, 1150, 620);
+  ON(D + 4.0, D + 6.85, '#st_conf .bm', 2.5, 960, 610);
+  ON(D + 7.15, D + 7.6, '#st_conf', 1.3, 1100, 600);
+  ON(D + 8.35, T.copy - .3, '#st_fill .bm', 2.6, 960, 600);
+  // copy trading: phone on the right, trader card on the left
+  WIDE(T.copy + .35, T.auto - .3, .9, 1450, 610, -8);
+  // autotrading: the rule is the hero, the phone supports it from the right
+  WIDE(T.auto + .4, T.perp - .3, .68, 1600, 600, -12);
+  // perps: big fragment with direction and leverage, then the opened position
+  ON(T.perp + .4, T.perp + .75, '#st_perp', 1.35, 1150, 610);
+  ON(T.perp + 1.45, T.perp + 2.55, '#st_long', 1.9, 1080, 600);
+  ON(T.perp + 3.3, T.alert - .3, '#st_open .bm', 2.5, 960, 600);
+  // alert: whole phone while it is set up, then close on the notification
+  WIDE(T.alert + .3, T.alert + 2.35, .86, 1250, 620);
+  ON(T.alert + 3.05, T.fin - .16, '#push', 2.1, 1000, 560);
   CAM.push(K(T.fin + .1, 0, 60, -300, 3, -6), K(T.fin + 1.2, 0, 0, -1400, 6, 0), K(DUR, 0, 0, -1450, 6, 0, 0, 1));
   CAM.sort((a, b) => a.t - b.t);
   for (let i = CAM.length - 1; i > 0; i--) if (CAM[i].t - CAM[i - 1].t < .22) CAM.splice(i - 1, 1);
 }
 function browserPose(t) {
   const a = E.io(seg(t, CUT + .95, D - .2));
-  return { x: lerp(0, -900, a), y: lerp(0, 80, a), z: lerp(0, -1500, a), ry: lerp(0, 24, a), op: lerp(1, .35, a) * (1 - seg(t, T.fin, T.fin + .6)), bl: lerp(0, 7, a) };
+  return { x: lerp(0, -900, a), y: lerp(0, 80, a), z: lerp(0, -1500, a), ry: lerp(0, 24, a), op: lerp(1, .35, a) * (1 - seg(t, D + .2, D + .7)), bl: lerp(0, 7, a) };
 }
 const BTN_W = { x: -480, y: 60, z: 20 };
 function phonePose(t) {
@@ -437,7 +450,7 @@ for (let k = 0; k < 7; k++) ev(D + .3 + k * .1, 'key'); for (let k = 0; k < 2; k
 ST.forEach(([, t]) => { if (t > D + .5) ev(t, 'pop'); });
 ev(D + 7.38, 'tick', { len: .6 }); ev(D + 8.03, 'confirm'); ev(T.copy + 1.3, 'confirm'); ev(T.auto + 2.3, 'confirm');
 ev(T.perp + 2.45, 'tick', { len: .5 }); ev(T.perp + 3.0, 'confirm'); ev(T.alert + 1.6, 'confirm'); ev(T.alert + 2.7, 'notify');
-ev(T.fin, 'whoosh', { len: 1.2, up: 0 }); [.6, .9, 1.2].forEach(d => ev(T.fin + d, 'blip')); ev(T.fin + 3.2, 'logo');
+ev(T.fin, 'whoosh', { len: 1.2, up: 0 }); [.6, .9, 1.2].forEach(d => ev(T.fin + d, 'blip')); ev(T.fin + 3.45, 'logo');
 
 /* ======================================================================
    RENDER
@@ -479,8 +492,9 @@ function renderAt(t) {
       wd.style.transform = `translateY(${(1 - e) * 46 - eo * 36}px)`; wd.style.opacity = clamp(q * 1.6) * (1 - eo);
     });
     const sq = E.o5(seg(t, c.in + .3, c.in + .7)); c.sbEl.style.opacity = sq * (1 - seg(t, c.out, c.out + .25));
-    const pi = E.o5(seg(t, c.in - .04, c.in + .3)), po = E.io(seg(t, c.out + .15, c.out + .5));
-    c.cp.style.opacity = pi * (1 - po); c.cp.style.transform = `translateX(${(1 - pi) * -30 - po * 24}px)`;
+    const pi = E.o5(seg(t, c.in - .04, c.in + .3)), po = E.io(seg(t, c.out + .15, c.out + .5)), sk = c.sh ? E.io(seg(t, c.sh, c.sh + .45)) : 0;
+    c.cp.style.transformOrigin = '0 0';
+    c.cp.style.opacity = pi * (1 - po) * (1 - .15 * sk); c.cp.style.transform = `translate(${(1 - pi) * -30 - po * 24 - 20 * sk}px,${-18 * sk}px) scale(${1 - .5 * sk})`;
   });
   // readouts
   ROS.forEach(r => {
@@ -490,13 +504,14 @@ function renderAt(t) {
     const ar = $(r.anc).getBoundingClientRect(), ax = ar.left + ar.width / 2, ay = ar.top + ar.height / 2, h = r.el.offsetHeight;
     let x, y;
     if (r.side === 'm') { x = 80; y = 430; }
+    else if (r.side === 'c') { x = 150; y = 330; }
     else if (r.side === 'r') { x = clamp(ar.right + 50, 60, 1920 - r.w - 60); y = clamp(ay - h / 2, 300, 1080 - h - 60); }
     else if (r.side === 'l') { x = clamp(ar.left - r.w - 50, 60, 1920 - r.w - 60); y = clamp(ay - h / 2, 300, 1080 - h - 60); }
     else { x = clamp(ax - r.w / 2, 60, 1920 - r.w - 60); y = clamp(ar.bottom + 40, 300, 1080 - h - 60); }
     r.el.style.transform = `translate(${x}px,${y + (1 - q) * 18}px) scale(${.96 + .04 * q})`;
     const ex = clamp(ax, x, x + r.w), ey = clamp(ay, y, y + h);
     r.line.setAttribute('x1', ax); r.line.setAttribute('y1', ay); r.line.setAttribute('x2', ex); r.line.setAttribute('y2', ey); r.dot.setAttribute('cx', ax); r.dot.setAttribute('cy', ay);
-    if (r.id === 'm5') { const b = E.io(seg(t, T.auto + 1.0, T.auto + 1.8)), a = lerp(60, 80, b), bb = lerp(84, 96, b), X = v => 20 + (v - 50) / 50 * 700;
+    if (r.id === 'm5') { const b = E.io(seg(t, T.auto + 1.0, T.auto + 1.8)), a = lerp(60, 80, b), bb = lerp(84, 96, b), X = v => 20 + (v - 50) / 50 * 920;
       $('#bandL').setAttribute('x1', X(a)); $('#bandL').setAttribute('x2', X(bb)); $('#bandA').setAttribute('cx', X(a)); $('#bandB').setAttribute('cx', X(bb)); $('#bandTxt').textContent = `${Math.round(a)}–${Math.round(bb)}¢`;
       $('#paperV').style.opacity = .35 + .65 * E.o(seg(t, T.auto + 2.3, T.auto + 2.6)); }
   });
@@ -508,7 +523,8 @@ function renderAt(t) {
     const sc = 1 - press * .14; curEl.style.transform = `translate(${cx - 4 * sc}px,${cy - 3 * sc}px) scale(${sc})`;
     curEl.style.opacity = seg(t, T.A + .2, T.A + .45) * (1 - seg(t, CUT + .9, CUT + 1.0)); } else curEl.style.opacity = 0;
   if (mobOn) { const [cx, cy] = pathAt(TOUCH, t); let press = 0; for (const e of TOUCH) if (e.c) press = Math.max(press, Math.sin(Math.PI * seg(t, e.t - .05, e.t + .15)));
-    touchEl.style.transform = `translate(${cx}px,${cy}px) scale(${1 - press * .25})`; touchEl.style.opacity = (.55 + .45 * press) * seg(t, D + .05, D + .3) * (1 - seg(t, T.fin - .05, T.fin + .2)); } else touchEl.style.opacity = 0;
+    touchEl.style.transform = `translate(${cx}px,${cy}px) scale(${1 - press * .25})`; let act = 0; for (const e of TOUCH) act = Math.max(act, seg(t, e.arr - .9, e.arr - .5) * (1 - seg(t, (e.c ? e.t : e.arr) + .45, (e.c ? e.t : e.arr) + .8)));
+    touchEl.style.opacity = act * (.55 + .45 * press) * seg(t, D + .05, D + .3) * (1 - seg(t, T.fin - .05, T.fin + .2)); } else touchEl.style.opacity = 0;
   ripEls.forEach(({ e, r }) => {
     const q = seg(t, e.t, e.t + .45); if (q <= 0 || q >= 1) { vis(r, 0); return; }
     const p = tpos(e), s = 18 + E.o(q) * 70; r.style.left = (p[0] - s / 2) + 'px'; r.style.top = (p[1] - s / 2) + 'px'; r.style.width = r.style.height = s + 'px'; vis(r, (1 - q) * .9);
@@ -548,13 +564,15 @@ function renderOutro(t) {
   if (wq > 0 && wq < 1) { const r = E.io(wq) * 2300, cx = 1300, cy = 560; const ring = $('#wRing'); ring.style.left = (cx - r) + 'px'; ring.style.top = (cy - r) + 'px'; ring.style.width = ring.style.height = 2 * r + 'px'; ring.style.borderWidth = lerp(40, 160, wq) + 'px';
     $('#wDark').style.clipPath = `circle(${Math.max(0, r - 80)}px at ${cx}px ${cy}px)`; vis(wave, 1); } else vis(wave, 0);
   const on = t > s + .3; vis(outro, on ? 1 : 0); if (!on) return;
-  fcards.forEach((c, i) => { const q = E.o5(seg(t, s + .5 + i * .3, s + .9 + i * .3)), g = E.io(seg(t, s + 3.0, s + 3.6));
-    const dx = (960 - (400 + i * 560)) * g; c.style.transform = `translate(${dx}px,${(1 - q) * 40 - g * 40}px) scale(${1 - .7 * g})`; c.style.opacity = q * (1 - g); });
-  const lq = seg(t, s + 3.3, s + 3.8);
+  // three fixed columns; after a short hold the whole group recedes as one, then the logo arrives on its own
+  const g = E.io(seg(t, s + 2.85, s + 3.35));
+  $('#fgrp').style.transform = `scale(${1 - .12 * g})`; $('#fgrp').style.opacity = 1 - g;
+  fcards.forEach((c, i) => { const q = E.o5(seg(t, s + .5 + i * .3, s + .9 + i * .3)); c.style.transform = `translateY(${(1 - q) * 40}px)`; c.style.opacity = q; });
+  const lq = seg(t, s + 3.5, s + 4.0);
   $('#oLogo').style.transform = `scale(${lerp(.5, 1, E.o5(lq))})`; $('#oLogo').style.opacity = lq;
-  const cq = E.o5(seg(t, s + 3.6, s + 4.1)); $('#oCta').style.opacity = cq; $('#oCta').style.transform = `translateY(${(1 - cq) * 24}px)`;
-  const uq = E.o5(seg(t, s + 3.85, s + 4.3)); $('#oUrl').style.opacity = uq; $('#oUrl').style.transform = `translateY(${(1 - uq) * 20}px)`;
-  $('#oTag').style.opacity = E.o(seg(t, s + 4.1, s + 4.6));
+  const cq = E.o5(seg(t, s + 3.8, s + 4.3)); $('#oCta').style.opacity = cq; $('#oCta').style.transform = `translateY(${(1 - cq) * 24}px)`;
+  const uq = E.o5(seg(t, s + 4.05, s + 4.5)); $('#oUrl').style.opacity = uq; $('#oUrl').style.transform = `translateY(${(1 - uq) * 20}px)`;
+  $('#oTag').style.opacity = E.o(seg(t, s + 4.3, s + 4.8));
 }
 
 function renderWeb(t) {
