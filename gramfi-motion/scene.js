@@ -204,7 +204,7 @@ const MAIN = (bal, pos, idc, idp) => `<div class="bm"><span class="demo">DEMO</s
   KB([[['🎯 Markets', idc === 'm' ? 'b_markets' : ''], ['👥 Copy Trading', idc === 'c' ? 'b_copy' : '']], ['🤖 Autotrading'], [['⚡ Perps', idp ? 'b_perps' : '']], ['📊 Portfolio', '💼 Wallet'], ['⚙️ Settings', '💬 Support']]);
 const SPARK = (w, h, col) => { const p = []; for (let i = 0; i <= 40; i++) p.push(`${i ? 'L' : 'M'}${(i / 40 * w).toFixed(1)},${(h * .8 - (Math.sin(i * .35) * .18 + i / 40 * .55 + Math.sin(i * 1.7) * .06) * h * .9).toFixed(1)}`); return `<svg width="${w}" height="${h}"><path d="${p.join(' ')}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round"/></svg>`; };
 const ST = [
-  ['st0', 22.3, MAIN('$100.00', 'No open positions', 'm', 0)],
+  ['st0', 22.0, MAIN('$100.00', 'No open positions', 'm', 0)],
   ['st1', 23.55, `<div class="bm">🎯 <b>Polymarket</b><br><br>Choose a section below to get started<span class="tm">12:00</span></div>` + KB([['📊 Select Category'], [['🔥 Trending Now', 'b_trending']], ['📈 Volume', '💧 Liquidity', '🆕 Newest'], ['⏳ Ending soon', '🏆 Competitive'], ['⚡ Fast Bets · 5 min'], ['⬅️ Back']])],
   ['st2', 24.85, `<div class="bm">📝 <b>Will BTC close above $90k on Friday?</b><br><br>💰 Current prices:<br>✅ Yes: <b>43¢</b><br>❌ No: <b>59¢</b><span class="tm">12:00</span></div>` + KB([[['✅ Yes 43¢', 'b_yes']], ['❌ No 59¢'], ['📜 History'], ['🔖 Watch', '🔔 Set Alert'], ['🌐 View on Polymarket'], ['⬅️ Back']])],
   ['st3', 27.1, `<div class="bm">💰 <b>Buying ✅ Yes</b><br><br>📋 <b>Will BTC close above $90k on Friday?</b><br>📈 Current price: <b>43¢</b><br><br>How much would you like to bet?<span class="tm">12:00</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
@@ -244,7 +244,7 @@ const CAPS = [
   { in: 8.15, out: 12.55, k: '02 · CORRELATION ANALYSIS', t: 'Price vs. Telegram <em>attention</em>' },
   { in: 13.15, out: 17.65, k: '03 · CHANNEL MAP', t: 'Find who <em>moves</em> the conversation' },
   { in: 18.25, out: 20.55, k: '04 · GRAMFI × POLYMARKET', t: 'Bet on Polymarket <em>through Telegram</em>' },
-  { in: 20.75, out: 22.25, k: 'MOBILE · TELEGRAM BOT', t: 'Now — right <em>in the chat</em>.', cls: 'capside' },
+  { in: 21.05, out: 22.3, k: 'MOBILE · TELEGRAM BOT', t: 'Now — right <em>in the chat</em>.', cls: 'capside' },
   { in: 22.45, out: 26.75, k: '05 · MARKETS', t: 'Every market, <em>inside</em> Telegram', cls: 'capside' },
   { in: 27.0, out: 31.85, k: '06 · BET', t: 'Three taps to a <em>filled</em> bet', cls: 'capside' },
   { in: 32.15, out: 35.85, k: '07 · COPY TRADING', t: 'Copy the <em>best wallets</em> automatically', cls: 'capside' },
@@ -289,8 +289,8 @@ const CAM = [ // x,y: look-at in world; d: dolly (+ closer); rx/ry/rz degrees
   { t: 17.75, x: -230, y: -190, d: 60, rx: 7, ry: 10, rz: 1 },
   { t: 18.8, x: 0, y: -100, d: -140, rx: 8, ry: -8, rz: -.5 },
   { t: 20.4, x: -170, y: 40, d: 120, rx: 6, ry: 6, rz: .5 },
-  { t: 21.3, x: 60, y: 0, d: -120, rx: 5, ry: -10, rz: -1 },
-  { t: 22.2, x: 80, y: -20, d: -60, rx: 4, ry: -14, rz: -1, hold: 0 },
+  { t: 21.3, x: 40, y: -20, d: -380, rx: 5, ry: -10, rz: -1 },
+  { t: 22.2, x: 110, y: 0, d: -250, rx: 4, ry: -14, rz: -1 },
   { t: 23.45, x: 220, y: 110, d: 90, rx: 4, ry: -10, rz: -.5 },
   { t: 24.75, x: 230, y: 140, d: 110, rx: 5, ry: -6, rz: 0 },
   { t: 26.4, x: 210, y: 10, d: 60, rx: 4, ry: -12, rz: -.5 },
@@ -319,7 +319,7 @@ function browserPose(t) {
 function phonePose(t) {
   if (t < 20.5) return null;
   const f = seg(t, 20.5, 21.95), fe = E.o5(f);
-  let x = lerp(BTN_W.x, PH.x, E.io(f)), y = lerp(BTN_W.y, PH.y, E.io(f)) - Math.sin(f * Math.PI) * 260, z = lerp(BTN_W.z, PH.z, fe);
+  let x = lerp(BTN_W.x, PH.x, E.io(f)), y = lerp(BTN_W.y, PH.y, E.io(f)) - Math.sin(f * Math.PI) * 110, z = lerp(BTN_W.z, PH.z, fe);
   let s = lerp(.08, 1, E.ob(seg(t, 20.5, 22.05))), ry = lerp(-70, -6, fe), rz = lerp(14, 0, fe), rx = lerp(30, 0, fe);
   const bob = seg(t, 22, 23); y += Math.sin(t * 1.3) * 6 * bob; rz += Math.sin(t * .9) * .4 * bob;
   const o = E.io(seg(t, 40.0, 41.7));
@@ -396,7 +396,7 @@ ev(0, 'start'); ev(2.5, 'whoosh', { len: .75, up: 1 }); ev(3.2, 'impact', { g: .
 ev(4.25, 'morph'); ev(7.6, 'swish'); ev(8.8, 'build', { len: 1.6 }); ev(12.65, 'swish'); ev(13.1, 'sparkle');
 for (let k = 0; k < 13; k++) ev(14.02 + k * .068, 'key');
 ev(15.25, 'whoosh', { len: 1.0, up: 0 }); ev(16.2, 'pop'); ev(17.8, 'swish');
-ev(20.5, 'riser', { len: 1.5 }); ev(22.0, 'drop');
+ev(20.5, 'riser', { len: 1.5 }); ev(21.55, 'pop'); ev(22.0, 'drop');
 ST.forEach(([, t]) => { if (t > 22.5) ev(t, 'pop'); });
 ev(29.8, 'tick', { len: .65 }); ev(30.5, 'success'); ev(35.1, 'success'); ev(38.7, 'tick', { len: .5 }); ev(39.2, 'success');
 ev(40.0, 'whoosh', { len: 1.2, up: 0 }); ev(40.5, 'logo');
@@ -531,7 +531,7 @@ function renderAt(t) {
   if (P) {
     setW(phone, P.x, P.y, P.z, 450, 940, `rotateX(${P.rx}deg) rotateY(${P.ry}deg) rotateZ(${P.rz}deg) scale(${P.s})`); vis(phone, P.op);
     let cur = -1; stEls.forEach((s, i) => { if (t >= s.t) cur = i; });
-    $('#u_start').style.opacity = E.o(seg(t, 21.9, 22.15)); $('#u_start').style.transform = `translateY(${(1 - E.o(seg(t, 21.9, 22.2))) * 20}px)`;
+    $('#u_start').style.opacity = E.o(seg(t, 21.55, 21.8)); $('#u_start').style.transform = `translateY(${(1 - E.o(seg(t, 21.55, 21.85))) * 20}px)`;
     stEls.forEach((s, i) => {
       const next = stEls[i + 1];
       const inn = seg(t, s.t, s.t + .32), out = next ? seg(t, next.t - .02, next.t + .14) : 0;
