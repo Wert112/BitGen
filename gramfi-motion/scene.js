@@ -534,7 +534,7 @@ function renderAt(t) {
     $('#u_start').style.opacity = E.o(seg(t, 21.55, 21.8)); $('#u_start').style.transform = `translateY(${(1 - E.o(seg(t, 21.55, 21.85))) * 20}px)`;
     stEls.forEach((s, i) => {
       const next = stEls[i + 1];
-      const inn = seg(t, s.t, s.t + .32), out = next ? seg(t, next.t - .02, next.t + .14) : 0;
+      const inn = seg(t, s.t + .05, s.t + .37), out = next ? seg(t, next.t - .03, next.t + .08) : 0;
       const op = (t >= s.t ? E.o(inn) : 0) * (1 - out);
       vis(s.el, op);
       s.el.style.transform = `translateY(${(1 - E.o5(inn)) * 26 - out * 10}px) scale(${lerp(.97, 1, E.ob(inn))})`;
