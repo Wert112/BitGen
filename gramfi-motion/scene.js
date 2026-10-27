@@ -42,12 +42,12 @@ const MARKET = 'Will BTC close above $80K on Oct 30, 2026?';
    TIMELINE (beats)
    ====================================================================== */
 const T = { A: 10 * B, ai: 22 * B, ctry: 32 * B, top: 38 * B, map: 42 * B, tele: 52 * B, poly: 64 * B, D: 76 * B };
-T.copy = T.D + 34 * B; T.auto = T.copy + 18 * B; T.perp = T.auto + 22 * B; T.alert = T.perp + 18 * B; T.fin = T.alert + 20 * B; T.end = T.fin + 7.6;
+T.copy = T.D + 26 * B; T.auto = T.copy + 12 * B; T.perp = T.auto + 16 * B; T.alert = T.perp + 12 * B; T.fin = T.alert + 14 * B; T.end = T.fin + 7.6;
 const D = T.D;
 const CUT = T.poly + 1.52; // montage cut: market card -> GramFi-Polymarket overview page
-// Scene time (tw) vs video time (tv): reading pauses in the web half, whole beats each (52 in total) so the phone
+// Scene time (tw) vs video time (tv): reading pauses in the web half, whole beats each (20 in total) so the phone
 // still lands on the drop. During a pause the scene holds its state while the camera keeps drifting.
-const HOLDS = [[1.0, 2], [3.5, 2], [T.A + 2.6, 6], [T.ai + 2.35, 7], [T.top - .3, 6], [T.map - .3, 4], [T.map + 3.15, 5], [T.tele + 2.2, 6], [T.poly + 1.1, 4], [T.poly + 1.45, 4], [CUT + .7, 6]];
+const HOLDS = [[T.A + 2.6, 3], [T.ai + 2.35, 4], [T.top - .3, 2], [T.map + 3.15, 2], [T.tele + 2.2, 3], [T.poly + 1.1, 3], [T.poly + 1.45, 3]];
 const warp = tv => { let acc = 0; for (const [h, n] of HOLDS) { const hv = h + acc; if (tv < hv) return tv - acc; if (tv < hv + n * B) return h; acc += n * B; } return tv - acc; };
 const toV = tw => { let acc = 0; for (const [h, n] of HOLDS) if (h < tw) acc += n * B; return tw + acc; };
 const DUR = T.end + HOLDS.reduce((a, [, n]) => a + n * B, 0);
@@ -248,20 +248,20 @@ const KB = rows => `<div class="kb">${rows.map(r => `<div class="rw" style="grid
 const CANDLES = (w, h) => { const r = rng(21); let y = h * .65, s = ''; for (let i = 0; i < 22; i++) { const up = r() > .38, b = 6 + r() * 16, x = 6 + i * (w - 12) / 22; const y2 = y + (up ? -b : b); const top = Math.min(y, y2), bh = Math.max(3, Math.abs(y2 - y)); s += `<line x1="${x + 4}" x2="${x + 4}" y1="${top - 6 - r() * 6}" y2="${top + bh + 6 + r() * 6}" stroke="${up ? '#2BD47D' : '#FF5C60'}" stroke-width="1.5"/><rect x="${x}" y="${top}" width="8" height="${bh}" rx="1.5" fill="${up ? '#2BD47D' : '#FF5C60'}"/>`; y = y2 - (up ? 2 : -1); } return `<svg width="${w}" height="${h}">${s}</svg>`; };
 const ST = [
   ['st_main', D, `<div class="bm">👋 <b>Alex</b> — Your Polymarket trading companion.<br><br>📋 <span class="k2">0x2b7e4c…9f0b</span><br>💵 <b>pUSD:</b> <span class="k2">$248.60</span> 🔄<br><br>📊 No open positions<br><br><i>💡 Paste a Polymarket link or type keywords to search any market.</i><span class="tme">14:55</span></div>` + KB([['🎯 Markets', '👥 Copy Trading'], ['🤖 Autotrading'], ['⚡ Perps'], ['📊 Portfolio', '💼 Wallet']])],
-  ['st_card', D + 1.4, `<div class="bm">📝 <b>${MARKET}</b><br><br>💰 Current prices:<br>✅ Yes: <b>43¢</b><br>❌ No: <b>57¢</b><span class="tme">14:56</span></div>` + KB([[['✅ Yes 43¢', 'b_yes']], ['❌ No 57¢'], ['📜 History'], ['🔖 Watch', '🔔 Set Alert'], ['⬅️ Back']])],
-  ['st_amt', D + 3.5, `<div class="bm">💰 <b>Buying ✅ Yes</b> · 43¢<br><br>📋 <b>${MARKET}</b><br><br>How much would you like to bet?<span class="tme">14:56</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
-  ['st_conf', D + 5.1, `<div class="bm">⚡ <b>Confirm your bet</b><br><br>${MARKET}<br><br>✅ Outcome: <b>YES</b><br>💰 Amount: <b>10.00 pUSD</b><br>💲 Price: 43.0¢ · Shares ≈ 23.26<br>🏆 If YES wins: <b>23.26 pUSD</b> (before fees)<span class="tme">14:56</span></div>` + KB([[['<span id="placeLbl">✅ Place order</span><span id="placeSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin1"></span>Placing order…</span>', 'b_place']], ['⬅️ Back']])],
-  ['st_fill', D + 10.0, `<div class="bm">✅ <b>Order filled</b><br><br>23.26 <b>YES</b> shares @ 43¢ · cost 10.00 pUSD<br>Balance: 238.60 pUSD<span class="tme">14:57</span></div>` + KB([['◉ Open', '○ History', '○ Stats'], ['⬅️ Back']])],
-  ['st_top', T.copy + .03, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>sharp_sports</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>macro_mind</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tme">14:58</span></div>` + KB([['⬅️ Back']])],
-  ['st_tracked', T.copy + 2.7, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · sharp_sports —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tme">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
-  ['st_lab', T.auto + .03, `<div class="bm">🧪 <b>Strategy Lab</b> · BTC 5m Up/Down<br><br><span style="color:#C9D6E2">Buy the side trading in your price band near the end of a round. Every rule starts on paper.</span><br><br><span class="k2">Price band</span> 80–96¢ · <span class="k2">Size</span> $2.00<span class="tme">14:59</span></div>` + KB([['Asset', 'Side', ['Price band', 'b_band']], [['▶️ Start on paper', 'b_paper']], ['⬅️ Back']])],
-  ['st_run', T.auto + 5.7, `<div class="bm">✅ <b>Strategy saved</b> · BTC 5m Up/Down<br><br>Mode: <b>📄 Paper</b> — no real funds used<br>Price band 80–96¢ · $2.00 per trade<span class="tme">14:59</span></div>` + KB([['📊 Paper results'], ['⬅️ Back']])],
-  ['st_perp', T.perp + .03, `<div class="bm">⚡ <b>Perpetual futures</b> · BTC-USD<br><b style="font-size:22px">79,843</b> <b style="color:#FF5C60">−0.57%</b> <span class="lnk">15m</span><div style="margin:8px 0 6px;background:#0F1A25;border-radius:12px;padding:8px">${CANDLES(360, 110)}</div>Leverage up to <b>×50</b> · long or short<span class="tme">15:00</span></div>` + KB([[['📈 Long', 'b_long'], '📉 Short'], ['⬅️ Back', '🕒 15m', '🔄']])],
-  ['st_long', T.perp + 2.4, `<div class="bm">📈 <b>Long BTC ×3</b> — profits if BTC rises<br><br>Margin <b>$22.50</b> · Position <b>$67.50</b><br>Liquidation ≈ <b>53,600</b><span class="tme">15:00</span></div>` + KB([['$10', '$25', '$50', 'Max'], ['×1', '✓ ×3', '×10', '×50'], [['<span id="openLbl">✅ Open long</span><span id="openSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin2"></span>Opening…</span>', 'b_open']], ['⬅️ Back']])],
-  ['st_open', T.perp + 4.7, `<div class="bm">✅ <b>Long BTC ×3 opened</b><br><br>Entry <b>79,860</b> · margin $22.50<br>Liquidation ≈ 53,600<span class="tme">15:00</span></div>` + KB([['📍 My positions'], ['⬅️ Back']])],
-  ['st_aopt', T.alert + .03, `<div class="bm">🔔 <b>${MARKET}</b><br><br>Choose outcome and direction:<span class="tme">15:01</span></div>` + KB([[['✅ YES 📈 (43¢)', 'b_yesup'], '✅ YES 📉 (43¢)'], ['❌ NO 📈 (57¢)', '❌ NO 📉 (57¢)'], ['⬅️ Back']])],
-  ['st_aprompt', T.alert + 1.1, `<div class="bm">🔔 ✅ <b>YES 📈</b> · now 43¢<br><br>Send the price to alert at (in ¢):<span class="tme">15:01</span></div>`],
-  ['st_aset', T.alert + 2.0, `<div class="bm">🔔 <b>Alert set</b><br><br>YES 📈 at <b>45¢</b><br><i>${MARKET}</i><span class="tme">15:01</span></div>` + KB([['🔔 My alerts'], ['⬅️ Back']])],
+  ['st_card', D + 1.15, `<div class="bm">📝 <b>${MARKET}</b><br><br>💰 Current prices:<br>✅ Yes: <b>43¢</b><br>❌ No: <b>57¢</b><span class="tme">14:56</span></div>` + KB([[['✅ Yes 43¢', 'b_yes']], ['❌ No 57¢'], ['📜 History'], ['🔖 Watch', '🔔 Set Alert'], ['⬅️ Back']])],
+  ['st_amt', D + 2.7, `<div class="bm">💰 <b>Buying ✅ Yes</b> · 43¢<br><br>📋 <b>${MARKET}</b><br><br>How much would you like to bet?<span class="tme">14:56</span></div>` + KB([['$2', '$5', ['$10', 'b_10']], ['$50', '$100'], ['🔢 Custom amount'], ['⬅️ Back']])],
+  ['st_conf', D + 3.8, `<div class="bm">⚡ <b>Confirm your bet</b><br><br>${MARKET}<br><br>✅ Outcome: <b>YES</b><br>💰 Amount: <b>10.00 pUSD</b><br>💲 Price: 43.0¢ · Shares ≈ 23.26<br>🏆 If YES wins: <b>23.26 pUSD</b> (before fees)<span class="tme">14:56</span></div>` + KB([[['<span id="placeLbl">✅ Place order</span><span id="placeSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin1"></span>Placing order…</span>', 'b_place']], ['⬅️ Back']])],
+  ['st_fill', D + 7.4, `<div class="bm">✅ <b>Order filled</b><br><br>23.26 <b>YES</b> shares @ 43¢ · cost 10.00 pUSD<br>Balance: 238.60 pUSD<span class="tme">14:57</span></div>` + KB([['◉ Open', '○ History', '○ Stats'], ['⬅️ Back']])],
+  ['st_top', T.copy + .026, `<div class="bm">📊 <b>Top Traders</b> · by PnL, 30 days<br><br>1. <b>sharp_sports</b> · <span class="k2">0x1111…1111</span><br>💰 PnL 30d: <b>+$7,120</b> · ROI 71% · Win 84%<br>└ <span class="lnk" id="a_add">➕ Add</span> · 👀 <span class="lnk">View</span><br><br>2. <b>macro_mind</b> · <span class="k2">0x2222…2222</span><br>💰 PnL 30d: <b>+$4,380</b> · ROI 14%<span class="tme">14:58</span></div>` + KB([['⬅️ Back']])],
+  ['st_tracked', T.copy + 2, `<div class="bm">👁 <b>Tracked Wallets</b><br><i>👇 Tap a link, or just type a trader's number in chat to open it.</i><br><br>1. 🟢 <span class="k2">0x1111…1111</span> · sharp_sports —<br><i>2% of balance ≈ $4.77</i><br>📊 <span class="lnk">View</span> · ⚙️ <span class="lnk">Filters</span> · 🗑 <span class="lnk">Remove</span><span class="tme">14:58</span></div>` + KB([['➕ Add Trader'], ['⬅️ Back']])],
+  ['st_lab', T.auto + .026, `<div class="bm">🧪 <b>Strategy Lab</b> · BTC 5m Up/Down<br><br><span style="color:#C9D6E2">Buy the side trading in your price band near the end of a round. Every rule starts on paper.</span><br><br><span class="k2">Price band</span> 80–96¢ · <span class="k2">Size</span> $2.00<span class="tme">14:59</span></div>` + KB([['Asset', 'Side', ['Price band', 'b_band']], [['▶️ Start on paper', 'b_paper']], ['⬅️ Back']])],
+  ['st_run', T.auto + 4.3, `<div class="bm">✅ <b>Strategy saved</b> · BTC 5m Up/Down<br><br>Mode: <b>📄 Paper</b> — no real funds used<br>Price band 80–96¢ · $2.00 per trade<span class="tme">14:59</span></div>` + KB([['📊 Paper results'], ['⬅️ Back']])],
+  ['st_perp', T.perp + .027, `<div class="bm">⚡ <b>Perpetual futures</b> · BTC-USD<br><b style="font-size:22px">79,843</b> <b style="color:#FF5C60">−0.57%</b> <span class="lnk">15m</span><div style="margin:8px 0 6px;background:#0F1A25;border-radius:12px;padding:8px">${CANDLES(360, 110)}</div>Leverage up to <b>×50</b> · long or short<span class="tme">15:00</span></div>` + KB([[['📈 Long', 'b_long'], '📉 Short'], ['⬅️ Back', '🕒 15m', '🔄']])],
+  ['st_long', T.perp + 1.8, `<div class="bm">📈 <b>Long BTC ×3</b> — profits if BTC rises<br><br>Margin <b>$22.50</b> · Position <b>$67.50</b><br>Liquidation ≈ <b>53,600</b><span class="tme">15:00</span></div>` + KB([['$10', '$25', '$50', 'Max'], ['×1', '✓ ×3', '×10', '×50'], [['<span id="openLbl">✅ Open long</span><span id="openSp" style="display:none;align-items:center;gap:8px"><span class="spin" id="spin2"></span>Opening…</span>', 'b_open']], ['⬅️ Back']])],
+  ['st_open', T.perp + 3.4, `<div class="bm">✅ <b>Long BTC ×3 opened</b><br><br>Entry <b>79,860</b> · margin $22.50<br>Liquidation ≈ 53,600<span class="tme">15:00</span></div>` + KB([['📍 My positions'], ['⬅️ Back']])],
+  ['st_aopt', T.alert + .021, `<div class="bm">🔔 <b>${MARKET}</b><br><br>Choose outcome and direction:<span class="tme">15:01</span></div>` + KB([[['✅ YES 📈 (43¢)', 'b_yesup'], '✅ YES 📉 (43¢)'], ['❌ NO 📈 (57¢)', '❌ NO 📉 (57¢)'], ['⬅️ Back']])],
+  ['st_aprompt', T.alert + .8, `<div class="bm">🔔 ✅ <b>YES 📈</b> · now 43¢<br><br>Send the price to alert at (in ¢):<span class="tme">15:01</span></div>`],
+  ['st_aset', T.alert + 1.5, `<div class="bm">🔔 <b>Alert set</b><br><br>YES 📈 at <b>45¢</b><br><i>${MARKET}</i><span class="tme">15:01</span></div>` + KB([['🔔 My alerts'], ['⬅️ Back']])],
 ];
 const phone = H(`<div class="w"><div id="phone"><div id="screen"><div class="wall"></div><div class="island"></div>
   <div class="status"><span>9:41</span><span>●●● ▮</span></div>
@@ -316,7 +316,7 @@ const CH = (() => { const r = rng(33), N = 58, Y = p => 1180 - (p - 77400) / 320
     h += `<g class="cn"><line x1="${x + 11}" x2="${x + 11}" y1="${Y(hi)}" y2="${Y(lo)}" stroke="${up ? '#2BD47D' : '#FF5C60'}" stroke-width="3"/><rect x="${x}" y="${Math.min(Y(o), Y(p))}" width="22" height="${Math.max(4, Math.abs(Y(o) - Y(p)))}" rx="3" fill="${up ? '#2BD47D' : '#FF5C60'}"/></g>`; }
   for (let v = 77500; v <= 80500; v += 500) h += `<text x="2490" y="${Y(v) + 8}" fill="#5E6A75" font-family="JetBrains Mono" font-size="26" text-anchor="end">${fmt(v)}</text><line x1="120" x2="2380" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.05)" stroke-width="2"/>`;
   h += `<line id="cEntry" x1="120" x2="2400" y1="${Y(79860)}" y2="${Y(79860)}" stroke="#EAFF00" stroke-width="5" stroke-dasharray="18 12" pathLength="1"/>`;
-  h += `<text x="140" y="1250" fill="#fff" font-family="Inter" font-weight="800" font-size="56">BTC-USD · Perpetual</text><text x="900" y="1250" fill="#FF5C60" font-family="JetBrains Mono" font-weight="700" font-size="40">79,843  −0.57%</text>`;
+  h += `<text x="140" y="1215" fill="#fff" font-family="Inter" font-weight="800" font-size="52">BTC-USD · Perpetual</text><text x="140" y="1272" fill="#FF5C60" font-family="JetBrains Mono" font-weight="700" font-size="40">79,843  −0.57%</text>`;
   return `<svg width="2600" height="1300" viewBox="0 0 2600 1300">${h}</svg>`; })();
 const chart = H(`<div class="w" style="width:2600px;height:1300px">${CH}</div>`); cam.insertBefore(chart, phone); const chartC = $$('.cn', chart);
 function renderMob(t, tv) {
@@ -324,33 +324,33 @@ function renderMob(t, tv) {
     el.style.transform = `translate(${(1 - q) * dx - o * dx * .3}px,${(1 - q) * dy}px)`; return op > 0; };
   const pulse = .5 + .5 * Math.sin(tv * 5);
   // bet: the ticket fills in as the user taps; the stamp is the result
-  if (show($('#tk'), D + 1.5, T.copy + .25, -140)) {
-    [['#tk0', D + 1.7], ['#tk1', D + 3.6], ['#tk2', D + 5.2], ['#tk3', D + 5.55]].forEach(([id, a]) => { const q = E.o5(seg(t, a, a + .45)); $(id).style.opacity = .12 + .88 * q; $(id).style.transform = `translateY(${(1 - q) * 16}px)`; });
-    const on = t < D + 3.5 ? 1 : t < D + 5.1 ? 2 : t < D + 10.0 ? 3 : 4;
+  if (show($('#tk'), D + 1.233, T.copy + .219, -140)) {
+    [['#tk0', D + 1.4], ['#tk1', D + 2.8], ['#tk2', D + 3.9], ['#tk3', D + 4.2]].forEach(([id, a]) => { const q = E.o5(seg(t, a, a + .45)); $(id).style.opacity = .12 + .88 * q; $(id).style.transform = `translateY(${(1 - q) * 16}px)`; });
+    const on = t < D + 2.7 ? 1 : t < D + 3.8 ? 2 : t < D + 7.4 ? 3 : 4;
     tkSteps.forEach((e, i) => { e.className = 'stp' + (i < on ? ' done' : i === on ? ' on' : ''); e.style.boxShadow = i === on ? `0 0 0 ${2 + 3 * pulse}px rgba(234,255,0,.35)` : 'none'; });
-    const sq = seg(t, D + 10.1, D + 10.45); $('#stamp').style.opacity = E.o(sq); $('#stamp').style.transform = `rotate(-7deg) scale(${lerp(2.2, 1, E.o5(sq)) * (1 + .02 * Math.sin(tv * 3))})`;
+    const sq = seg(t, D + 7.5, D + 7.85); $('#stamp').style.opacity = E.o(sq); $('#stamp').style.transform = `rotate(-7deg) scale(${lerp(2.2, 1, E.o5(sq)) * (1 + .02 * Math.sin(tv * 3))})`;
   }
   // copy trading: cards come in from the right; the chosen trader is promoted, the other steps back
-  if (show($('#cpP'), T.copy + .6, T.auto + .1, 160)) {
-    const a = E.o5(seg(t, T.copy + .75, T.copy + 1.2)), b = E.o5(seg(t, T.copy + .95, T.copy + 1.4)), ad = E.o5(seg(t, T.copy + 2.75, T.copy + 3.2));
+  if (show($('#cpP'), T.copy + .525, T.auto + .087, 160)) {
+    const a = E.o5(seg(t, T.copy + .656, T.copy + .967)), b = E.o5(seg(t, T.copy + .8, T.copy + 1.1)), ad = E.o5(seg(t, T.copy + 2.045, T.copy + 2.45));
     $('#tc1').style.transform = `translateX(${(1 - a) * 120}px) scale(${1 + .04 * ad})`; $('#tc1').style.opacity = a; $('#tc1').style.borderColor = ad > .5 ? '#EAFF00' : '#2A2E31';
     $('#tc2').style.transform = `translateX(${(1 - b) * 120}px) scale(${1 - .06 * ad})`; $('#tc2').style.opacity = b * (1 - .65 * ad);
     $('#tcAdd').style.maxHeight = (ad * 60) + 'px'; $('#tcAdd').style.opacity = ad;
     $('#tcBadge').style.opacity = ad; $('#tcBadge').style.transform = `scale(${lerp(1.8, 1, ad)})`;
   }
   // autotrading: the playhead runs through four rounds, buying only inside the band
-  if (show($('#auP'), T.auto + .75, T.perp + .1, 0, 60)) {
-    const ph = 1200 * E.io(seg(t, T.auto + 1.6, T.auto + 4.6)); $('#auClipR').setAttribute('width', ph); $('#auHead').setAttribute('x1', ph); $('#auHead').setAttribute('x2', ph); $('#auHead').style.opacity = ph > 0 && ph < 1199 ? .8 : 0;
+  if (show($('#auP'), T.auto + .656, T.perp + .089, 0, 60)) {
+    const ph = 1200 * E.io(seg(t, T.auto + 1.3, T.auto + 3.5)); $('#auClipR').setAttribute('width', ph); $('#auHead').setAttribute('x1', ph); $('#auHead').setAttribute('x2', ph); $('#auHead').style.opacity = ph > 0 && ph < 1199 ? .8 : 0;
     auMarks.forEach(m => { const q = clamp((ph - +m.dataset.x) / 40); m.style.opacity = q; m.style.transformOrigin = `${m.dataset.x}px 150px`; m.style.transform = `scale(${lerp(1.4, 1, E.o(q))})`; });
-    [['#ch0', T.auto + 2.25], ['#ch1', T.auto + 2.45], ['#ch2', T.auto + 5.7]].forEach(([id, a]) => { const q = E.o(seg(t, a, a + .3)); $(id).classList.toggle('on', q > .5); $(id).style.opacity = .4 + .6 * q; $(id).style.transform = `scale(${1 + .06 * Math.sin(Math.PI * q)})`; });
+    [['#ch0', T.auto + 1.777], ['#ch1', T.auto + 1.923], ['#ch2', T.auto + 4.3]].forEach(([id, a]) => { const q = E.o(seg(t, a, a + .3)); $(id).classList.toggle('on', q > .5); $(id).style.opacity = .4 + .6 * q; $(id).style.transform = `scale(${1 + .06 * Math.sin(Math.PI * q)})`; });
   }
   // perps: chart draws in behind; order on the left, opened position on the right
-  { const cq = seg(t, T.perp + .3, T.perp + 1.4), co = E.io(seg(t, T.alert + .1, T.alert + .7)); vis(chart, (cq > 0 ? 1 : 0) * (1 - co));
-    if (cq > 0 && co < 1) { setW(chart, 0, 20 + co * 300, -500, 2600, 1300); chartC.forEach((c, i) => c.style.opacity = clamp(cq * chartC.length * 1.15 - i)); const en = E.io(seg(t, T.perp + 4.8, T.perp + 5.4)); $('#cEntry').style.strokeDasharray = `${en} 1`; $('#cEntry').style.opacity = en > 0 ? 1 : 0; } }
-  show($('#ppL'), T.perp + 2.6, T.alert + .1, -140); show($('#ppR'), T.perp + 5.0, T.alert + .1, 140);
+  { const cq = seg(t, T.perp + .267, T.perp + 1.143), co = E.io(seg(t, T.alert + .07, T.alert + .49)); vis(chart, (cq > 0 ? 1 : 0) * (1 - co));
+    if (cq > 0 && co < 1) { setW(chart, 0, 20 + co * 300, -500, 2600, 1300); chartC.forEach((c, i) => c.style.opacity = clamp(cq * chartC.length * 1.15 - i)); const en = E.io(seg(t, T.perp + 3.471, T.perp + 3.9)); $('#cEntry').style.strokeDasharray = `${en} 1`; $('#cEntry').style.opacity = en > 0 ? 1 : 0; } }
+  show($('#ppL'), T.perp + 1.929, T.alert + .07, -140); show($('#ppR'), T.perp + 3.614, T.alert + .07, 140);
   // alert: what was set, then the trigger lifted out of the lock screen
-  show($('#alL'), T.alert + 2.2, T.alert + 3.7, -140);
-  { const q = E.o5(seg(t, T.alert + 5.1, T.alert + 5.6)), o = seg(t, T.fin - .1, T.fin + .2); const el = $('#alB'); vis(el, q * (1 - o));
+  show($('#alL'), T.alert + 1.625, T.alert + 2.587, -140);
+  { const q = E.o5(seg(t, T.alert + 3.55, T.alert + 3.95)), o = seg(t, T.fin - .1, T.fin + .2); const el = $('#alB'); vis(el, q * (1 - o));
     el.style.transform = `translate(${0}px,${lerp(180, 0, q)}px) scale(${lerp(.45, 1, q) * (1 + .012 * Math.sin(tv * 2.4))})`; }
 }
 
@@ -364,11 +364,11 @@ const CAPS = [
   { in: T.tele + .15, out: T.poly - .3, t: 'Read <em>the source.</em>', s: 'TELESCOPE · POSTS THAT MENTION $BTC', sh: T.tele + 1.55 },
   { in: T.poly + .15, out: CUT + .5, t: 'Explore <em>the market.</em>', s: 'GRAMFI × POLYMARKET', sh: T.poly + .8 },
   { in: CUT + .75, out: D + .25, t: 'Act <em>in Telegram.</em>', s: 'GRAMFI-POLYMARKET BOT' },
-  { in: D + .4, out: T.copy - .35, t: 'Bet <em>in a few taps.</em>', s: 'POLYMARKET BOT · BET', sh: D + 1.4 },
-  { in: T.copy + .3, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING', sh: T.copy + 1.7, r: 1 },
-  { in: T.auto + .2, out: T.perp - .3, t: 'Define <em>your rules.</em>', s: 'AUTOTRADING · BTC 5-MIN ROUNDS', sh: T.auto + 1.0 },
-  { in: T.perp + .2, out: T.alert - .3, t: 'Trade <em>perpetual futures.</em>', s: 'PERPS · LONG OR SHORT', sh: T.perp + 1.5 },
-  { in: T.alert + .2, out: T.fin - .3, t: 'Stay <em>informed.</em>', s: 'PRICE ALERTS', sh: T.alert + 1.2 },
+  { in: D + .386, out: T.copy - .35, t: 'Bet <em>in a few taps.</em>', s: 'POLYMARKET BOT · BET', sh: D + 1.15 },
+  { in: T.copy + .262, out: T.auto - .3, t: 'Choose <em>who to follow.</em>', s: 'COPY TRADING', sh: T.copy + 1.3, r: 1 },
+  { in: T.auto + .175, out: T.perp - .3, t: 'Define <em>your rules.</em>', s: 'AUTOTRADING · BTC 5-MIN ROUNDS', sh: T.auto + .85 },
+  { in: T.perp + .178, out: T.alert - .3, t: 'Trade <em>perpetual futures.</em>', s: 'PERPS · LONG OR SHORT', sh: T.perp + 1.229 },
+  { in: T.alert + .14, out: T.fin - .3, t: 'Stay <em>informed.</em>', s: 'PRICE ALERTS', sh: T.alert + .9 },
 ];
 const capsEl = $('#caps');
 CAPS.forEach(c => {
@@ -441,10 +441,10 @@ const CUR = [
   { t: CUT + .78, sel: '#tgBtn', fx: .5, c: 1 },
 ];
 const TOUCH = [
-  { t: D + .15, sel: '#ph', fx: .3 }, { t: D + 1.2, sel: '#sendBtn', c: 1 }, { t: D + 3.4, sel: '#b_yes', c: 1 }, { t: D + 5.0, sel: '#b_10', c: 1 }, { t: D + 9.3, sel: '#b_place', c: 1 },
-  { t: T.copy + 2.6, sel: '#a_add', c: 1 }, { t: T.auto + 2.2, sel: '#b_band', c: 1 }, { t: T.auto + 5.6, sel: '#b_paper', c: 1 },
-  { t: T.perp + 2.3, sel: '#b_long', c: 1 }, { t: T.perp + 4.1, sel: '#b_open', c: 1 },
-  { t: T.alert + 1.0, sel: '#b_yesup', c: 1 }, { t: T.alert + 1.2, sel: '#ph', fx: .3 }, { t: T.alert + 1.9, sel: '#sendBtn', c: 1 },
+  { t: D + .15, sel: '#ph', fx: .3 }, { t: D + 1, sel: '#sendBtn', c: 1 }, { t: D + 2.6, sel: '#b_yes', c: 1 }, { t: D + 3.7, sel: '#b_10', c: 1 }, { t: D + 6.8, sel: '#b_place', c: 1 },
+  { t: T.copy + 1.9, sel: '#a_add', c: 1 }, { t: T.auto + 1.74, sel: '#b_band', c: 1 }, { t: T.auto + 4.2, sel: '#b_paper', c: 1 },
+  { t: T.perp + 1.7, sel: '#b_long', c: 1 }, { t: T.perp + 2.9, sel: '#b_open', c: 1 },
+  { t: T.alert + .7, sel: '#b_yesup', c: 1 }, { t: T.alert + .9, sel: '#ph', fx: .3 }, { t: T.alert + 1.4, sel: '#sendBtn', c: 1 },
 ];
 [CUR, TOUCH].forEach(L => L.forEach(e => { e.arr = e.c ? e.t - .28 : e.t; e.el = e.sel ? $(e.sel) : null; if (e.c) ev(e.t, L === CUR ? 'click' : 'tap'); }));
 const curEl = $('#cursor'), touchEl = $('#touch'), ripsEl = $('#rips');
@@ -482,23 +482,23 @@ const CAM = [
 ];
 {
   const pR = $('#phone'); const offs = (el, root) => { let x = 0, y = 0, n = el; while (n && n !== root) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return [x, y, el.offsetWidth, el.offsetHeight]; };
-  CAM.push(K(D + .7, 0, 0, -300, 0, 0, 0, 1), K(T.fin - .05, 0, 0, -300, 0, 0, 0, 1));
+  CAM.push(K(D + .643, 0, 0, -300, 0, 0, 0, 1), K(T.fin - .05, 0, 0, -300, 0, 0, 0, 1));
   CAM.push(K(T.fin + .1, 0, 20, -320, 2, -3), K(T.fin + 1.2, 0, 0, -1400, 6, 0), K(T.end, 0, 0, -1450, 6, 0, 0, 1));
   CAM.sort((a, b) => a.t - b.t);
   for (let i = CAM.length - 1; i > 0; i--) if (CAM[i].t - CAM[i - 1].t < .22) CAM.splice(i - 1, 1);
 }
 function browserPose(t) {
   const a = E.io(seg(t, CUT + .95, D - .2));
-  return { x: lerp(0, -900, a), y: lerp(0, 80, a), z: lerp(0, -1500, a), ry: lerp(0, 24, a), op: lerp(1, .35, a) * (1 - seg(t, D + .2, D + .7)), bl: lerp(0, 7, a) };
+  return { x: lerp(0, -900, a), y: lerp(0, 80, a), z: lerp(0, -1500, a), ry: lerp(0, 24, a), op: lerp(1, .35, a) * (1 - seg(t, D + .2, D + .643)), bl: lerp(0, 7, a) };
 }
 const BTN_W = { x: -480, y: 60, z: 20 };
 // camera sits at d = -300 after landing, so z = 300 is 1:1 on screen; screen x = 960 + x * scale
 const PPK = (t, x, y, z, ry, rz = 0, hold = 1) => ({ t, x, y, z, ry, rz, hold });
-const PK = [PPK(D, PH.x, 0, 300, -4, 0, 0), PPK(D + .7, 430, 0, 300, -6), PPK(T.copy, 430, 0, 300, -6),
-  PPK(T.copy + .8, -500, 10, 300, 8), PPK(T.auto, -500, 10, 300, 8),                                // copy: slides across to the left
-  PPK(T.auto + .8, 846, 95, -500, -16), PPK(T.perp, 846, 95, -500, -16),                            // auto: recedes into the corner
-  PPK(T.perp + .45, 846, 1500, -500, -16, 8, 0), PPK(T.perp + 1.0, 0, 1400, -58, 0, -6, 0), PPK(T.perp + 1.7, 0, 58, -58, 0), // perps: drops out, rises in front of the chart
-  PPK(T.alert, 0, 58, -58, 0), PPK(T.alert + .7, 0, 40, 40, 0), PPK(T.fin, 0, 40, 40, 0)];          // alert: steps closer
+const PK = [PPK(D, PH.x, 0, 300, -4, 0, 0), PPK(D + .643, 430, 0, 300, -6), PPK(T.copy, 430, 0, 300, -6),
+  PPK(T.copy + .7, -500, 10, 300, 8), PPK(T.auto, -500, 10, 300, 8),                                // copy: slides across to the left
+  PPK(T.auto + .7, 846, 95, -500, -16), PPK(T.perp, 846, 95, -500, -16),                            // auto: recedes into the corner
+  PPK(T.perp + .4, 846, 1500, -500, -16, 8, 0), PPK(T.perp + .8, 0, 1400, -58, 0, -6, 0), PPK(T.perp + 1.4, 0, 58, -58, 0), // perps: drops out, rises in front of the chart
+  PPK(T.alert, 0, 58, -58, 0), PPK(T.alert + .49, 0, 40, 40, 0), PPK(T.fin, 0, 40, 40, 0)];          // alert: steps closer
 function phonePose(t) {
   const t0 = CUT + .9; if (t < t0) return null;
   const f = seg(t, t0, D - .08), fe = E.o5(f);
@@ -506,7 +506,7 @@ function phonePose(t) {
   let s = lerp(.08, 1, E.ob(seg(t, t0, D + .05))), ry = lerp(-60, -4, fe), rz = lerp(12, 0, fe), rx = lerp(25, 0, fe);
   if (t > D) { x = spline(PK, t, 'x'); y = spline(PK, t, 'y'); z = spline(PK, t, 'z'); ry = spline(PK, t, 'ry'); rz = spline(PK, t, 'rz'); rx = 0; }
   const o = E.io(seg(t, T.fin, T.fin + .9)); z = lerp(z, -900, o); s = lerp(s, .5, o);
-  const dim = 1 - .45 * E.io(seg(t, T.alert + 5.1, T.alert + 5.6));
+  const dim = 1 - .45 * E.io(seg(t, T.alert + 3.55, T.alert + 3.95));
   return { x, y, z, s, rx, ry, rz, op: clamp(seg(t, t0, t0 + .12)) * (1 - seg(t, T.fin + .3, T.fin + .9)) * dim };
 }
 
@@ -517,13 +517,13 @@ ev(.05, 'rumble', { len: 2.4 }); ev(1.85, 'whoosh', { len: 1.2, up: 1 }); ev(3.1
 ev(T.A + 1.6, 'pop'); ev(T.ai + .85, 'sparkle'); ev(T.ctry + 1.0, 'whoosh', { len: .7, up: 0 });
 for (let k = 0; k < 15; k++) ev(T.map + .72 + k * .045, 'key'); ev(T.map + 1.6, 'whoosh', { len: .9, up: 0 }); ev(T.tele + .8, 'morph');
 ev(CUT, 'swish'); ev(CUT + .9, 'whoosh', { len: 1.7, up: 1 }); ev(D, 'land');
-for (let k = 0; k < 7; k++) ev(D + .3 + k * .1, 'key'); for (let k = 0; k < 2; k++) ev(T.alert + 1.42 + k * .2, 'key');
-ST.forEach(([, t]) => { if (t > D + .5) ev(t, 'pop'); });
-ev(D + 9.35, 'tick', { len: .6 }); ev(D + 10.0, 'confirm'); ev(D + 10.15, 'impact', { g: .4 });
-ev(T.copy, 'whoosh', { len: .8, up: 0 }); ev(T.copy + 2.7, 'confirm');
-ev(T.auto, 'whoosh', { len: .8, up: 1 }); ev(T.auto + 1.6, 'tick', { len: 3.0 }); ev(T.auto + 5.7, 'confirm');
-ev(T.perp + .05, 'whoosh', { len: .5, up: 0 }); ev(T.perp + 1.0, 'whoosh', { len: .8, up: 1 }); ev(T.perp + 4.15, 'tick', { len: .5 }); ev(T.perp + 4.7, 'confirm');
-ev(T.alert + 2.0, 'confirm'); ev(T.alert + 3.7, 'tick', { len: .8 }); ev(T.alert + 4.6, 'notify'); ev(T.alert + 5.1, 'whoosh', { len: .6, up: 1 });
+for (let k = 0; k < 7; k++) ev(D + .3 + k * .1, 'key'); for (let k = 0; k < 2; k++) ev(T.alert + 1.017 + k * .2, 'key');
+ST.forEach(([, t]) => { if (t > D + .471) ev(t, 'pop'); });
+ev(D + 6.843, 'tick', { len: .6 }); ev(D + 7.4, 'confirm'); ev(D + 7.55, 'impact', { g: .4 });
+ev(T.copy, 'whoosh', { len: .8, up: 0 }); ev(T.copy + 2, 'confirm');
+ev(T.auto, 'whoosh', { len: .8, up: 1 }); ev(T.auto + 1.3, 'tick', { len: 2.2 }); ev(T.auto + 4.3, 'confirm');
+ev(T.perp + .044, 'whoosh', { len: .5, up: 0 }); ev(T.perp + .8, 'whoosh', { len: .8, up: 1 }); ev(T.perp + 2.942, 'tick', { len: .5 }); ev(T.perp + 3.4, 'confirm');
+ev(T.alert + 1.5, 'confirm'); ev(T.alert + 2.587, 'tick', { len: .8 }); ev(T.alert + 3.25, 'notify'); ev(T.alert + 3.55, 'whoosh', { len: .6, up: 1 });
 ev(T.fin, 'whoosh', { len: 1.2, up: 0 }); [.6, .9, 1.2].forEach(d => ev(T.fin + d, 'blip')); ev(T.fin + 3.45, 'logo');
 
 /* ======================================================================
@@ -747,25 +747,25 @@ function renderPhone(t) {
     if (op <= 0) return;
     s.btns.forEach((b, j) => { const q = E.o(seg(t, s.t + .05 + j * .015, s.t + .28 + j * .015)), hs = hoverState(b, t); b.classList.toggle('hv', !!hs.hv); b.style.transform = `translateY(${(1 - q) * 8}px) scale(${1 - hs.pr * .05})`; b.style.opacity = q; });
   });
-  const uq = E.o(seg(t, D + 1.25, D + 1.45)) * (1 - seg(t, T.copy - .05, T.copy)); $('#u_q').style.opacity = uq; vis($('#u_q'), uq);
-  const u4 = E.o(seg(t, T.alert + 1.95, T.alert + 2.1)) * (1 - seg(t, T.fin - .1, T.fin)); vis($('#u_45'), u4);
+  const uq = E.o(seg(t, D + 1.038, D + 1.192)) * (1 - seg(t, T.copy - .05, T.copy)); $('#u_q').style.opacity = uq; vis($('#u_q'), uq);
+  const u4 = E.o(seg(t, T.alert + 1.45, T.alert + 1.562)) * (1 - seg(t, T.fin - .1, T.fin)); vis($('#u_45'), u4);
   // typing into the chat input: the keyword search, then the alert price
-  const ty1 = seg(t, D + .3, D + 1.0), ty2 = seg(t, T.alert + 1.4, T.alert + 1.7);
-  const f1 = t >= D + .1 && t < D + 1.25, f2 = t >= T.alert + 1.2 && t < T.alert + 1.95;
+  const ty1 = seg(t, D + .3, D + .9), ty2 = seg(t, T.alert + 1, T.alert + 1.25);
+  const f1 = t >= D + .1 && t < D + 1.038, f2 = t >= T.alert + .9 && t < T.alert + 1.45;
   $('#ph').className = 'ph' + (f1 || f2 ? ' f' : '');
   $('#phTxt').textContent = f1 ? ('btc 80k'.slice(0, Math.round(7 * ty1)) || 'Message') : f2 ? ('45'.slice(0, Math.round(2 * ty2)) || 'Message') : 'Message';
   $('#phCaret').style.opacity = f1 || f2 ? 1 : 0;
   const sb = $('#sendBtn'), sh = hoverState(sb, t); sb.style.background = (f1 && ty1 > 0) || (f2 && ty2 > 0) ? '#6AB3F3' : '#2B5278'; sb.style.transform = `scale(${1 - sh.pr * .15})`;
-  const placing = t >= D + 9.35 && t < D + 10.0, opening = t >= T.perp + 4.15 && t < T.perp + 4.7;
+  const placing = t >= D + 6.843 && t < D + 7.4, opening = t >= T.perp + 2.942 && t < T.perp + 3.4;
   $('#placeLbl').style.display = placing ? 'none' : 'inline'; $('#placeSp').style.display = placing ? 'inline-flex' : 'none'; $('#b_place').classList.toggle('dk', placing);
   $('#openLbl').style.display = opening ? 'none' : 'inline'; $('#openSp').style.display = opening ? 'inline-flex' : 'none'; $('#b_open').classList.toggle('dk', opening);
   $('#spin1').style.transform = $('#spin2').style.transform = `rotate(${t * 900}deg)`;
   const ad = hoverState($('#a_add'), t); Object.assign($('#a_add').style, { background: ad.hv ? '#EAFF00' : 'transparent', color: ad.hv ? '#12140F' : '', borderRadius: '6px', padding: '1px 4px' });
   vis($('#later'), 0);
   // "later": the phone locks, the clock runs forward, the alert arrives on the lock screen
-  vis($('#lock'), E.io(seg(t, T.alert + 3.6, T.alert + 4.0)));
-  const clk = Math.round(lerp(61, 144, E.io(seg(t, T.alert + 3.8, T.alert + 4.5)))); $('#lockClk').textContent = `${Math.floor(clk / 60) + 14}:${String(clk % 60).padStart(2, '0')}`;
-  const pu = E.o5(seg(t, T.alert + 4.6, T.alert + 4.9)); $('#push').style.transform = `translateY(${(1 - pu) * -140}px)`; vis($('#push'), clamp(pu * 1.5));
+  vis($('#lock'), E.io(seg(t, T.alert + 2.5, T.alert + 2.85)));
+  const clk = Math.round(lerp(61, 144, E.io(seg(t, T.alert + 2.675, T.alert + 3.15)))); $('#lockClk').textContent = `${Math.floor(clk / 60) + 14}:${String(clk % 60).padStart(2, '0')}`;
+  const pu = E.o5(seg(t, T.alert + 3.25, T.alert + 3.43)); $('#push').style.transform = `translateY(${(1 - pu) * -140}px)`; vis($('#push'), clamp(pu * 1.5));
 }
 
 window.renderAt = renderAt; window.EVENTS = EVENTS.map(e => ({ ...e, t: toV(e.t) })).sort((a, b) => a.t - b.t); window.DUR = DUR;
