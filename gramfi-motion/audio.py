@@ -1,7 +1,9 @@
-"""Music + sound design for the GramFi motion piece, synthesised offline with numpy.
+"""Music + sound design for the GramFi motion piece.
 
-Reads events.json (written by render.js from the same timeline the picture uses) and writes
-audio.wav (48 kHz, stereo, 16-bit). 120 BPM: beat = 0.5 s, so scene cuts at 3.0 / 22.0 / 40.5 s land on beats.
+Music is the supplied track (assets/music.mp3), cut on its 140 BPM phrase grid to fit the edit;
+UI sound design (clicks, swishes, pops, chimes) is synthesised with numpy from events.json, which
+render.js writes from the same timeline the picture uses. Output: audio.wav, 48 kHz stereo 16-bit.
+Usage: python3 audio.py events.json audio.wav [track.mp3]
 """
 import json
 import sys
@@ -9,14 +11,11 @@ import wave
 import numpy as np
 
 SR = 48000
-BPM = 120
-BEAT = 60 / BPM
 rng = np.random.default_rng(3)
 
 ev = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "events.json"))
 DUR = ev["dur"]
 N = int(DUR * SR)
-music = np.zeros((N, 2))
 sfx = np.zeros((N, 2))
 
 
@@ -74,37 +73,36 @@ def additive(freq, d, nh=10, tilt=1.0, hdecay=0.0, detune=0.0):
     return y
 
 
-# ------------------------------------------------------------------ instruments
-def kick(g=1.0):
-    t = tt(0.42)
-    f = 46 + 95 * np.exp(-t * 28)
-    ph = 2 * np.pi * np.cumsum(f) / SR
-    y = np.sin(ph) * np.exp(-t * 7.5) + 0.25 * fft_filter(rng.standard_normal(len(t)), lo=2500) * np.exp(-t * 180)
-    return y * g
+# ------------------------------------------------------------------ music: the supplied track, cut on its phrase grid
+# Track: 140 BPM. Its break ends with a drop at 84.04 s; the groove ends at 125.196 s and the tail begins.
+# Video 0..56.571 s  <- track 51.469..108.040 s (drop lands at video 32.571 s = the phone landing)
+# Video 56.571..end  <- track 125.196 s onward (natural ending under the logo lockup)
+import subprocess
+TRACK = sys.argv[3] if len(sys.argv) > 3 else "assets/music.mp3"
+raw = subprocess.run(["ffmpeg", "-v", "error", "-i", TRACK, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
+trk = np.frombuffer(raw, "<f4").reshape(-1, 2).astype(float)
+SPLIT = 132 * 60 / 140  # 56.571 s, start of the outro
+A0, B0 = 51.469, 125.196
+def cut(a, n):
+    i = int(round(a * SR)); x = trk[i:i + n]
+    return np.vstack([x, np.zeros((n - len(x), 2))]) if len(x) < n else x
+nA = int(round(SPLIT * SR)); XF = int(0.06 * SR)
+music = cut(A0, nA + XF)
+tail = cut(B0 - XF / SR, N - nA + XF)
+fadeA = np.cos(np.linspace(0, np.pi / 2, XF))[:, None]; fadeB = np.sin(np.linspace(0, np.pi / 2, XF))[:, None]
+out = np.zeros((N, 2)); out[:nA] = music[:nA]
+out[nA - XF // 2:nA + XF // 2] = music[nA - XF // 2:nA + XF // 2] * fadeA + tail[:XF] * fadeB
+out[nA + XF // 2:] = tail[XF:XF + N - nA - XF // 2]
+# intro: the track "opens" from a dark low-passed version to full range over the first 4.3 s
+intro_end = 10 * 60 / 140
+lp = fft_filter(out, hi=700)
+w = np.clip(np.arange(N) / SR / intro_end, 0, 1)[:, None] ** 1.5
+out = lp * (1 - w) + out * w
+out *= np.clip(np.arange(N) / SR / 0.6, 0, 1)[:, None]          # fade in
+fade = np.ones(N); f0 = int((DUR - 1.2) * SR); fade[f0:] = np.linspace(1, 0, N - f0) ** 1.5
+music = out * fade[:, None] * 0.82
 
-
-def clap():
-    d = 0.32
-    n = rng.standard_normal(int(d * SR))
-    t = tt(d)
-    e = np.zeros_like(t)
-    for o in (0, 0.011, 0.022):
-        e += np.exp(-np.maximum(0, t - o) * 60) * (t >= o)
-    e += 0.5 * np.exp(-np.maximum(0, t - 0.03) * 14) * (t >= 0.03)
-    return fft_filter(n, lo=900, hi=5200) * e * 0.55
-
-
-def hat(open_=False):
-    d = 0.28 if open_ else 0.06
-    n = fft_filter(rng.standard_normal(int(d * SR)), lo=7000)
-    return n * np.exp(-tt(d) * (14 if open_ else 70)) * (0.35 if open_ else 0.28)
-
-
-def pluck(m, d=0.6):
-    y = additive(hz(m), d, nh=12, tilt=1.1, hdecay=3.5) * env(d, 0.003, 0.22, 0, 0.05)
-    return y
-
-
+# ------------------------------------------------------------------ sound design
 def bell(m, d=1.2):
     t = tt(d)
     f = hz(m)
@@ -112,113 +110,6 @@ def bell(m, d=1.2):
     return np.sin(2 * np.pi * f * t + mod) * np.exp(-t * 3.2) * env(d, 0.002, 10, 1, 0.05)
 
 
-def bass(m, d):
-    t = tt(d)
-    f = hz(m)
-    y = np.sin(2 * np.pi * f * t) + 0.3 * np.sin(4 * np.pi * f * t) + 0.12 * np.sin(6 * np.pi * f * t)
-    return np.tanh(1.4 * y) * env(d, 0.004, 0.18, 0.35, 0.04)
-
-
-def pad_chord(ms, d):
-    y = np.zeros(int(d * SR))
-    for m in ms:
-        for dt in (-0.004, 0.0035):
-            y += additive(hz(m), d, nh=14, tilt=1.0, detune=dt)
-    return y / len(ms) * env(d, 0.35, 10, 1, 0.4)
-
-
-# ------------------------------------------------------------------ arrangement
-PROG = [  # (pad voicing, bass root, arp notes) per 2-second bar
-    ([53, 57, 60, 64, 67], 41, [65, 69, 72, 76]),   # Fmaj9
-    ([57, 60, 64, 67], 45, [64, 69, 72, 76]),       # Am7
-    ([60, 64, 67, 71], 48, [67, 71, 72, 76]),       # Cmaj7
-    ([55, 59, 62, 64], 43, [62, 67, 71, 74]),       # G6
-]
-BARS = int(np.ceil(DUR / (4 * BEAT)))
-
-
-def section(t):
-    if t < 3.0:
-        return "intro"
-    if t < 20.5:
-        return "A"
-    if t < 22.0:
-        return "break"
-    if t < 40.5:
-        return "B"
-    return "outro"
-
-
-pad = np.zeros(N)
-for b in range(BARS):
-    t0 = b * 4 * BEAT
-    if t0 >= DUR:
-        break
-    ch, root, arp = PROG[b % 4]
-    sec = section(t0 + 0.01)
-    d = min(4 * BEAT + 0.6, DUR - t0)
-    if sec == "outro":
-        d = DUR - t0
-        ch, root, arp = PROG[0]
-    pchord = pad_chord(ch, d) * (0.55 if sec in ("intro", "break", "outro") else 0.42)
-    i = int(t0 * SR)
-    pad[i:i + len(pchord)] += pchord[: N - i]
-    for k in range(8):  # 8th-note grid inside the bar
-        tb = t0 + k * BEAT / 2
-        if tb >= DUR:
-            break
-        s = section(tb)
-        if s in ("A", "B"):
-            if k % 2 == 0:
-                place(music, tb, kick(0.9 if s == "A" else 1.0), 0.8)
-            if k in (2, 6):
-                place(music, tb, clap(), 0.55, 0.05)
-            if k % 2 == 1:
-                place(music, tb, hat(open_=(s == "B" and k in (3, 7))), 0.75, 0.3)
-            bn = root - 12 if k % 4 != 3 else root
-            place(music, tb, bass(bn, BEAT / 2 * 0.95), 0.36 if s == "A" else 0.42)
-            if k in (1, 3, 4, 6):
-                for j, m in enumerate(ch[-3:]):
-                    place(music, tb + j * 0.004, pluck(m + 12, 0.45), 0.10, -0.3 + 0.3 * j)
-        if s == "B":  # 16th arp lead
-            for h in range(2):
-                ta = tb + h * BEAT / 4
-                if ta < DUR:
-                    place(music, ta, bell(arp[(k * 2 + h) % 4] + 12, 0.5), 0.05, 0.4 * np.sin(ta * 3))
-        if s == "intro" and k % 2 == 0:
-            place(music, tb, bell(arp[(k // 2) % 4] + 12, 1.4), 0.13, 0.5 * np.sin(tb * 2))
-        if s == "break" and k % 2 == 0:
-            place(music, tb, bell(arp[(k // 2) % 4] + 12, 1.0), 0.05 + 0.03 * (tb - 20.5), 0.4)
-
-# sidechain-style duck on the pad under the kicks
-duck = np.ones(N)
-for b in np.arange(3.0, 40.5, BEAT):
-    if 20.5 <= b < 22.0:
-        continue
-    i = int(b * SR)
-    k = 1 - 0.55 * np.exp(-tt(BEAT) / 0.09)
-    duck[i:i + len(k)] = np.minimum(duck[i:i + len(k)], k[: N - i])
-pad = fft_filter(pad, lo=110, hi=1900) * duck * 0.075
-music[:, 0] += pad
-music[:, 1] += pad
-
-# break: drop everything out right before the drop for a breath, build with a riser
-gate = np.ones(N)
-i0, i1 = int(21.78 * SR), int(22.0 * SR)
-gate[i0:i1] = np.linspace(1, 0.15, i1 - i0)
-music *= gate[:, None]
-
-# outro: final chord hit at 40.5 then a gentle ring-out
-place(music, 40.5, kick(1.0), 0.8)
-for j, m in enumerate([65, 69, 72, 76, 79]):
-    place(music, 40.5 + j * 0.03, bell(m + 12, 3.0), 0.09, -0.4 + 0.2 * j)
-fade = np.ones(N)
-f0 = int((DUR - 1.6) * SR)
-fade[f0:] = np.linspace(1, 0, N - f0) ** 1.6
-music *= fade[:, None]
-
-
-# ------------------------------------------------------------------ sound design
 def click():
     d = 0.06
     t = tt(d)
@@ -340,7 +231,10 @@ for e in ev["events"]:
     elif ty == "riser":
         place(sfx, t, riser(e["len"]), 0.55)
     elif ty == "drop":
-        place(sfx, t, impact(1.0, 1.8), 0.75)
+        place(sfx, t, impact(0.8, 1.4), 0.45)
+    elif ty == "notify":
+        place(sfx, t, chime(), 0.6, 0.2)
+        place(sfx, t + 0.18, chime(), 0.35, -0.2)
     elif ty == "impact":
         place(sfx, t, impact(e.get("g", 0.6), 1.2), 0.55)
     elif ty == "success":
@@ -348,8 +242,8 @@ for e in ev["events"]:
     elif ty == "tick":
         place(sfx, t, ticks(e["len"]), 0.6)
     elif ty == "logo":
-        place(sfx, t, impact(0.7, 1.6), 0.5)
-        place(sfx, t, chime(), 0.5)
+        place(sfx, t, impact(0.6, 1.4), 0.35)
+        place(sfx, t, chime(), 0.45)
 
 
 # ------------------------------------------------------------------ reverb + master
@@ -364,7 +258,7 @@ def reverb(x, secs=1.9, wet=0.22):
     return x * (1 - wet) + y * wet * 2.2
 
 
-mix = reverb(music, 2.2, 0.20) + reverb(sfx, 1.2, 0.16) * 0.95
+mix = music + reverb(sfx, 1.2, 0.16) * 0.8
 mix = fft_filter(mix, lo=28)
 peak = np.abs(mix).max()
 mix *= 0.89 / peak  # ~ -1 dBFS peak
