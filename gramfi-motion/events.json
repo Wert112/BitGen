@@ -1,0 +1,324 @@
+{
+ "dur": 44,
+ "events": [
+  {
+   "t": 0,
+   "type": "start"
+  },
+  {
+   "t": 0.2,
+   "type": "caption"
+  },
+  {
+   "t": 1.6,
+   "type": "caption"
+  },
+  {
+   "t": 2.5,
+   "type": "whoosh",
+   "len": 0.75,
+   "up": 1
+  },
+  {
+   "t": 3.2,
+   "type": "impact",
+   "g": 0.6
+  },
+  {
+   "t": 3.25,
+   "type": "caption"
+  },
+  {
+   "t": 4.2,
+   "type": "click"
+  },
+  {
+   "t": 4.25,
+   "type": "morph"
+  },
+  {
+   "t": 7.55,
+   "type": "click"
+  },
+  {
+   "t": 7.6,
+   "type": "swish"
+  },
+  {
+   "t": 8.15,
+   "type": "caption"
+  },
+  {
+   "t": 8.75,
+   "type": "click"
+  },
+  {
+   "t": 8.8,
+   "type": "build",
+   "len": 1.6
+  },
+  {
+   "t": 12.6,
+   "type": "click"
+  },
+  {
+   "t": 12.65,
+   "type": "swish"
+  },
+  {
+   "t": 13.1,
+   "type": "sparkle"
+  },
+  {
+   "t": 13.15,
+   "type": "caption"
+  },
+  {
+   "t": 13.85,
+   "type": "click"
+  },
+  {
+   "t": 14.02,
+   "type": "key"
+  },
+  {
+   "t": 14.088,
+   "type": "key"
+  },
+  {
+   "t": 14.155999999999999,
+   "type": "key"
+  },
+  {
+   "t": 14.224,
+   "type": "key"
+  },
+  {
+   "t": 14.292,
+   "type": "key"
+  },
+  {
+   "t": 14.36,
+   "type": "key"
+  },
+  {
+   "t": 14.427999999999999,
+   "type": "key"
+  },
+  {
+   "t": 14.496,
+   "type": "key"
+  },
+  {
+   "t": 14.564,
+   "type": "key"
+  },
+  {
+   "t": 14.632,
+   "type": "key"
+  },
+  {
+   "t": 14.7,
+   "type": "key"
+  },
+  {
+   "t": 14.767999999999999,
+   "type": "key"
+  },
+  {
+   "t": 14.836,
+   "type": "key"
+  },
+  {
+   "t": 15.15,
+   "type": "click"
+  },
+  {
+   "t": 15.25,
+   "type": "whoosh",
+   "len": 1,
+   "up": 0
+  },
+  {
+   "t": 16.2,
+   "type": "pop"
+  },
+  {
+   "t": 17.75,
+   "type": "click"
+  },
+  {
+   "t": 17.8,
+   "type": "swish"
+  },
+  {
+   "t": 18.25,
+   "type": "caption"
+  },
+  {
+   "t": 20.4,
+   "type": "click"
+  },
+  {
+   "t": 20.5,
+   "type": "riser",
+   "len": 1.5
+  },
+  {
+   "t": 20.75,
+   "type": "caption"
+  },
+  {
+   "t": 22,
+   "type": "drop"
+  },
+  {
+   "t": 22.45,
+   "type": "caption"
+  },
+  {
+   "t": 23.45,
+   "type": "click"
+  },
+  {
+   "t": 23.55,
+   "type": "pop"
+  },
+  {
+   "t": 24.75,
+   "type": "click"
+  },
+  {
+   "t": 24.85,
+   "type": "pop"
+  },
+  {
+   "t": 27,
+   "type": "caption"
+  },
+  {
+   "t": 27,
+   "type": "click"
+  },
+  {
+   "t": 27.1,
+   "type": "pop"
+  },
+  {
+   "t": 28.3,
+   "type": "click"
+  },
+  {
+   "t": 28.4,
+   "type": "pop"
+  },
+  {
+   "t": 29.7,
+   "type": "click"
+  },
+  {
+   "t": 29.8,
+   "type": "tick",
+   "len": 0.65
+  },
+  {
+   "t": 30.5,
+   "type": "pop"
+  },
+  {
+   "t": 30.5,
+   "type": "success"
+  },
+  {
+   "t": 32.1,
+   "type": "click"
+  },
+  {
+   "t": 32.15,
+   "type": "caption"
+  },
+  {
+   "t": 32.2,
+   "type": "pop"
+  },
+  {
+   "t": 32.85,
+   "type": "click"
+  },
+  {
+   "t": 32.95,
+   "type": "pop"
+  },
+  {
+   "t": 33.75,
+   "type": "click"
+  },
+  {
+   "t": 33.85,
+   "type": "pop"
+  },
+  {
+   "t": 35,
+   "type": "click"
+  },
+  {
+   "t": 35.1,
+   "type": "success"
+  },
+  {
+   "t": 36,
+   "type": "click"
+  },
+  {
+   "t": 36.05,
+   "type": "caption"
+  },
+  {
+   "t": 36.15,
+   "type": "pop"
+  },
+  {
+   "t": 36.7,
+   "type": "click"
+  },
+  {
+   "t": 36.8,
+   "type": "pop"
+  },
+  {
+   "t": 37.6,
+   "type": "click"
+  },
+  {
+   "t": 37.7,
+   "type": "pop"
+  },
+  {
+   "t": 38.6,
+   "type": "click"
+  },
+  {
+   "t": 38.7,
+   "type": "tick",
+   "len": 0.5
+  },
+  {
+   "t": 39.2,
+   "type": "pop"
+  },
+  {
+   "t": 39.2,
+   "type": "success"
+  },
+  {
+   "t": 40,
+   "type": "whoosh",
+   "len": 1.2,
+   "up": 0
+  },
+  {
+   "t": 40.5,
+   "type": "logo"
+  }
+ ]
+}
