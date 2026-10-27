@@ -226,7 +226,7 @@ const pg_poly = addPage(H(`<div class="page">
      <div id="mentBox" style="border:1px solid #6A7A00;background:rgba(234,255,0,.06);border-radius:4px;padding:12px 12px;font-size:16px;font-weight:600"><b style="color:#EAFF00">$BTC</b>&nbsp; 1224 Telegram mentions (24h)</div></div></div>
    <div style="position:absolute;left:330px;top:100px;width:300px"><div class="aibox"><h4>Price History <span style="color:#2BD47D;font-size:13px">Yes</span></h4><div style="color:#2BD47D;font-size:22px;font-weight:700">43%</div><svg width="264" height="130"><path d="M0,80 L30,76 L60,84 L90,70 L120,72 L150,60 L180,66 L210,58 L240,62 L264,56" fill="none" stroke="#2BD47D" stroke-width="2"/></svg></div>
     <div class="aibox" style="margin-top:12px"><h4>Order Book</h4>${['0.47 2 554', '0.46 1 867', '0.45 1 020', '0.44 4 086'].map(r => { const [p, ...s] = r.split(' '); return `<div class="obr"><span class="dn">$${p}</span><span>${s.join(' ')}</span><span>—</span></div>`; }).join('')}<div style="text-align:center;color:#EAFF00;font-size:12px;margin:6px 0">Spread: +0.01</div>${['0.43 2 936', '0.42 11 356', '0.41 9 588'].map(r => { const [p, ...s] = r.split(' '); return `<div class="obr"><span class="up">$${p}</span><span>${s.join(' ')}</span><span>—</span></div>`; }).join('')}</div></div>
-   <div id="aiMk" style="position:absolute;left:646px;top:100px;right:16px"><div style="display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;margin-bottom:12px">✦ AI Analysis — Bitcoin <span style="font-size:12px;color:#EAFF00;border:1px solid #6A7A00;padding:2px 6px;border-radius:4px">5519</span><span style="margin-left:auto;font-size:11px;color:#888">PERIOD ALL ▾</span></div>
+   <div id="aiMk" style="position:absolute;left:646px;top:100px;right:16px"><div id="aiHead" style="padding:4px 6px;margin:-4px -6px 8px;display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;margin-bottom:12px">✦ AI Analysis — Bitcoin <span style="font-size:12px;color:#EAFF00;border:1px solid #6A7A00;padding:2px 6px;border-radius:4px">5519</span><span style="margin-left:auto;font-size:11px;color:#888">PERIOD ALL ▾</span></div>
     <div class="gpt"><div class="gh">GPT Analysis <span>10/27/2026 14:50</span></div><ul><li>Mentions rose sharply because several high-impact news items hit at once: BlackRock's IBIT moved 1,698 BTC to Coinbase Prime, which traders interpreted as a possible sale, while a Japanese whale suddenly withdrew 65 BTC after two quiet years.</li><li>Bitcoin also broke below the key $80,000 level and traded around $79,700, increasing discussion across trading channels.</li></ul></div>
     <div class="gpt"><div class="gh">GPT Analysis <span>10/27/2026 13:45</span></div><ul><li>Binance's announcement that it will delist 12 BTC trading pairs on Oct. 30 is the biggest mention driver.</li></ul></div></div>
   </div>
@@ -262,7 +262,7 @@ const phone = H(`<div class="w"><div id="phone"><div id="screen"><div class="wal
   <div class="tgh"><span class="bk">‹</span>${LOGO(44)}<div><div class="nm">GramFi</div><div class="sb">bot</div></div><span style="margin-left:auto;color:var(--tg);font-size:22px">⋮</span></div>
   <div id="chat"><div class="umsg" id="u_q" style="top:18px">btc 80k<small>14:56 ✓✓</small></div><div class="umsg" id="u_45" style="top:18px">45<small>15:01 ✓✓</small></div>${ST.map(([id, , html]) => `<div class="st" id="${id}">${html}</div>`).join('')}
    <div id="later" style="position:absolute;left:50%;top:80px;transform:translateX(-50%);background:rgba(23,33,43,.95);color:#C9D6E2;border-radius:999px;padding:8px 18px;font-size:16px;font-weight:700">🕒 Later…</div></div>
-  <div class="push" id="push">${LOGO(40)}<div><div style="display:flex;justify-content:space-between"><b>GramFi</b><span style="color:#9AA3AD;font-size:12px">now</span></div>🔔 <b>YES reached 45¢</b> 📈 · ${MARKET}</div></div>
+  <div class="push" id="push">${LOGO(40)}<div><div style="display:flex;justify-content:space-between"><b>GramFi</b><span style="color:#9AA3AD;font-size:12px">now</span></div><div style="font-size:19px;font-weight:800;margin-top:2px">🔔 YES reached 45¢ 📈</div><div style="font-size:12px;color:#8E98A3;margin-top:2px">${MARKET}</div></div></div>
   <div class="inbar"><span class="menuBtn">☰ Menu</span><div class="ph" id="ph"><span id="phTxt">Message</span><span class="caret" id="phCaret" style="height:18px"></span></div><span id="sendBtn">↑</span></div>
 </div></div></div>`);
 cam.appendChild(phone);
@@ -297,7 +297,7 @@ const ROS = [
   { id: 'r3', t0: T.ctry + 1.65, t1: T.top - .2, anc: '#krBtc', side: 'l', w: 620, html: `<div class="k">KOREA · SHARE OF MENTIONS</div><div class="v">BTC <em>19%</em> · #2</div>` },
   { id: 'r5', t0: T.map + 2.7, t1: T.tele - .25, anc: '#mapInfo', side: 'r', w: 640, html: `<div class="k">EXAMPLE CHANNEL</div><div class="v">Forwarded by <em>16 channels</em></div>` },
   { id: 'r6', t0: T.tele + 1.65, t1: T.poly - .2, anc: '#starPost', side: 'r', w: 1080, html: `<div style="display:flex;gap:16px;align-items:center;margin-bottom:12px"><span style="width:54px;height:54px;border-radius:50%;background:#3A3F3A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:26px">E</span><div><b style="font-size:28px">Example Channel</b> <span class="ex" style="font-size:14px">EXAMPLE</span><div style="font-size:20px;color:#9AA095">10/27/2026 · 14:50</div></div></div><div class="v" style="font-size:56px">Will BTC close above $80K on Oct 30? Polymarket shows <em>43% YES.</em></div><div class="s" style="color:#6AB3F3">Open in Telegram ↗</div>` },
-  { id: 'm4', t0: T.copy + 1.45, t1: T.auto - .2, anc: '#st_tracked .bm', side: 'm', w: 820, html: `<div class="k">TRACKED WALLETS</div><div class="v"><em>✓</em> sharp_sports</div><div class="s">copies 2% of balance per trade</div>` },
+  { id: 'm4', t0: T.copy + 1.45, t1: T.auto - .2, anc: '#st_tracked .bm', side: 'm', w: 900, html: `<div class="k">✓ TRADER ADDED</div><div class="v" style="font-size:80px"><em>sharp_sports</em></div><div class="s" style="font-size:40px;color:#fff;margin-top:14px">Copies 2% of balance per trade</div>` },
   { id: 'm5', t0: T.auto + .55, t1: T.perp - .2, anc: '#st_lab .bm', side: 'c', w: 1040, html: `<div class="k">YOUR RULE · BTC 5m UP/DOWN</div><div class="v" style="font-size:64px">Price band <span id="bandTxt">80–96¢</span></div><svg width="960" height="80" style="margin-top:6px"><line x1="20" y1="34" x2="940" y2="34" stroke="#2A2E31" stroke-width="12" stroke-linecap="round"/><line id="bandL" y1="34" y2="34" stroke="#EAFF00" stroke-width="10" stroke-linecap="round"/><circle id="bandA" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/><circle id="bandB" cy="34" r="17" fill="#EAFF00" stroke="#0F1011" stroke-width="5"/></svg><div class="v" id="paperV" style="font-size:60px;margin-top:10px">Mode: <em>paper</em> · no real funds</div>` },
 ];
 const rosEl = $('#ros'), conn = $('#conn');
@@ -358,7 +358,7 @@ const TOUCH = [
   { t: D + 7.33, sel: '#b_place', c: 1 }, { t: D + 8.6, sel: '#st_fill .bm', fx: .8, fy: .85 },
   { t: T.copy + 1.2, sel: '#a_add', c: 1 }, { t: T.auto + .9, sel: '#b_band', c: 1 }, { t: T.auto + 2.2, sel: '#b_paper', c: 1 },
   { t: T.perp + 1.0, sel: '#b_long', c: 1 }, { t: T.perp + 2.4, sel: '#b_open', c: 1 },
-  { t: T.alert + .7, sel: '#b_yesup', c: 1 }, { t: T.alert + .9, sel: '#ph', fx: .3 }, { t: T.alert + 1.45, sel: '#sendBtn', c: 1 }, { t: T.alert + 3.2, sel: '#push', fx: .8, fy: 1.5 },
+  { t: T.alert + .7, sel: '#b_yesup', c: 1 }, { t: T.alert + .9, sel: '#ph', fx: .3 }, { t: T.alert + 1.45, sel: '#sendBtn', c: 1 },
 ];
 [CUR, TOUCH].forEach(L => L.forEach(e => { e.arr = e.c ? e.t - .28 : e.t; e.el = e.sel ? $(e.sel) : null; if (e.c) ev(e.t, L === CUR ? 'click' : 'tap'); }));
 const curEl = $('#cursor'), touchEl = $('#touch'), ripsEl = $('#rips');
@@ -411,7 +411,8 @@ const CAM = [
   ON(D + 7.15, D + 7.6, '#st_conf', 1.3, 1100, 600);
   ON(D + 8.35, T.copy - .3, '#st_fill .bm', 2.6, 960, 600);
   // copy trading: phone on the right, trader card on the left
-  WIDE(T.copy + .35, T.auto - .3, .9, 1450, 610, -8);
+  WIDE(T.copy + .35, T.copy + .9, .9, 1450, 610, -8);
+  ON(T.copy + 1.6, T.auto - .3, '#st_tracked .bm', 1.55, 1460, 560);
   // autotrading: the rule is the hero, the phone supports it from the right
   WIDE(T.auto + .4, T.perp - .3, .68, 1600, 600, -12);
   // perps: big fragment with direction and leverage, then the opened position
@@ -650,7 +651,7 @@ function pPoly(t) {
   const rowH = hoverState($('#mkRow'), t); $('#mkRow').style.background = rowH.hv || t > s + .38 ? 'rgba(234,255,0,.10)' : 'transparent';
   $('#modal').style.transform = `translateY(${(1 - mq) * 40}px)`; vis($('#modal'), mq);
   const m1 = E.io(seg(t, s + .9, s + 1.05)) * (1 - E.io(seg(t, s + 1.25, s + 1.35))), m2 = E.io(seg(t, s + 1.25, s + 1.4)) * (1 - E.io(seg(t, CUT - .1, CUT)));
-  $('#mentBox').style.boxShadow = `0 0 0 ${3 * m1}px #EAFF00`; $('#aiMk').style.boxShadow = `0 0 0 ${3 * m2}px #EAFF00`; $('#aiMk').style.borderRadius = '6px';
+  $('#mentBox').style.boxShadow = `0 0 0 ${3 * m1}px #EAFF00`; $('#aiHead').style.boxShadow = `0 0 0 ${3 * m2}px #EAFF00`; $('#aiHead').style.borderRadius = '6px';
   vis($('#landing'), t >= CUT ? 1 : 0);
   const hb = hoverState($('#tgBtn'), t), pushed = t >= CUT + .78; $('#tgBtn').style.transform = `scale(${(1 + hb.hv * .04) * (1 - hb.pr * .07)})`;
   $('#tgBtn').style.background = pushed ? '#FFFFFF' : '#EAFF00'; $('#tgLbl').textContent = pushed ? 'Opening Telegram…' : 'GramFi-Polymarket TG Bot';
